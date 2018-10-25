@@ -8,7 +8,7 @@ You are here because you want to know how to
 4. If you are frustrated to understand the metal kernel functionalities and how it should be calculated; then please give a look to this official document from Apple: https://developer.apple.com/documentation/metal/setting_up_a_command_structure
 5. If you would like to read more from the following link then it will be easier to understand the basic of Metal GPU pipeline: https://developer.apple.com/documentation/metal/setting_up_a_command_structure
 
-Special thanks to this repository and its owner:: https://github.com/navoshta/MetalRenderCamera
+## Special thanks to this repository and its owner:: https://github.com/navoshta/MetalRenderCamera
 
 I grabbed camera session, metal texture cache creation and other setup related code from here. I perform subclassing for `MTLCommandEncoder` class. I subclassed `AVAssetWriter` to generate video from `MTLTexture`. 
 Here are some important notes about the metal rendering process
@@ -19,6 +19,6 @@ Here are some important notes about the metal rendering process
 4. Kernel function subclassing for applying the different effect in live iOS camera stream.
 5. If you would like to add some custom metal effects you my subclass `BaseKernelPipelineState` and override `processArguments(computeEncode:)` method. 
 
-# Any Contribution and Suggestion about metal will be highly appreciated.
+* Any Contribution and Suggestion about metal will be highly appreciated.
 
 # contact @ mostafizur.cse@gmail.com // +8801675876752
