@@ -17,3 +17,6 @@ Here are some important notes about metal rendering process
 3. Output is writen to an internal texture for rendering and later video/image generation.
 4. Kernel function subclassing for applying different effect in live iOS camera stream.
 5. If you would like to add some custom metal effects you my subclass `BaseKernelPipelineState` and override `processArguments(computeEncode:)` method. 
+
+### Any Contribution and Suggestion about metal will be highly appriciated.
+### contact @ mostafizur.cse@gmail.com // +8801675876752
