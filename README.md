@@ -1,4 +1,4 @@
-# metal-camera-metal-video-metal-image
+# Swift Metal Camera / iOS metal video g-metal-image
 
 You are here because you want to know how to 
 
