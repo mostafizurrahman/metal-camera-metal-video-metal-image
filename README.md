@@ -15,4 +15,5 @@ Here are some important notes about metal rendering process
 1. Metal Texture used for rendering in `MTLView` is not suitable for generating video/still image.
 2. `MTLComputeCommandEncoder` is used to process camera feed in metal kernel function. 
 3. Output is writen to an internal texture for rendering and later video/image generation.
-4. 
+4. Kernel function subclassing for applying different effect in live iOS camera stream.
+5. If you would like to add some custom metal effects you my subclass `BaseKernelPipelineState` and override `processArguments(computeEncode:)` method. 
