@@ -1,6 +1,6 @@
-# Swift Metal Camera / iOS metal video g-metal-image
+# Swift Metal Camera / iOS Metal Video Generator / Metal Image Generation
 
-You are here because you want to know how to 
+You are here because you wametalnt to know how to 
 
 1. How to upload camera feed direct to metal kernel/fragment functions.
 2. Give a start with basic Still Image Texture / Camera Metal Texture loading/processing in iOS graphics using metal API(s).
