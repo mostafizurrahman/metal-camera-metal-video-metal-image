@@ -84,6 +84,7 @@ internal final class CameraViewController: MTKViewController {
         if self.captureType == .metalFeed {
             self.metalCameraSession.captureSessionQueueAudio.async {
                 self.metalWriteQueue.async {
+                    self.shouldWritetexture = false
                     self.metalVideoWriter?.endVideoCapture()
                 }
             }
@@ -98,6 +99,9 @@ internal final class CameraViewController: MTKViewController {
         self.effectCaptureButton.isHidden = hidden
         self.cameraCaptureButton.isHidden = hidden
         self.stopCaptureButton.isHidden = !hidden
+        self.metalCameraSession.captureSessionQueueAudio.async {
+            self.shouldWritetexture = true
+        }
     }
     
     // perform segue to next view controller with video url
@@ -112,7 +116,21 @@ internal final class CameraViewController: MTKViewController {
         }
     }
     
-
+    override func writeVideo(Texture intexture: MTLTexture) {
+        if self.captureType == .metalFeed {
+            
+            if self.metalVideoWriter == nil {
+                self.metalVideoWriter = MetalVideoWriter.init(withMetalTexture: intexture,
+                                                              atSourceTime: self.displayTime)
+                self.metalVideoWriter?.captureDelegate = self
+            } else {
+                guard let metalWriter = self.metalVideoWriter else {
+                    return
+                }
+                metalWriter.append(metalTexture: intexture, atTime: self.displayTime)
+            }
+        }
+    }
 
 }
 
@@ -152,25 +170,10 @@ extension CameraViewController: CameraSessionDelegate {
                             atTime sourceTime: CMTime) {
         
         self.texture = textures[0]
-//        self.metalWriteQueue.sync {
         self.displayTime = sourceTime
-//        }
-        // starts video effect writing if video capture type is changed to metalFeed
-        if self.captureType == .metalFeed {
-            
-            if self.metalVideoWriter == nil {
-                self.metalVideoWriter = MetalVideoWriter.init(withMetalTexture: self.metalTexture,
-                                                              atSourceTime: self.displayTime)
-                self.metalVideoWriter?.captureDelegate = self
-            } else {
-                guard let metalWriter = self.metalVideoWriter else {
-                    return
-                }
-                metalWriter.append(metalTexture: self.metalTexture, atTime: self.displayTime)
-            }
-        }
         
     }
+    
     
     
     func metalCameraSession(_ session: MetalCameraSession,

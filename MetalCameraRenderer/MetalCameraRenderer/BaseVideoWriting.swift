@@ -165,7 +165,7 @@ public class BaseVideoWriter {
         self.skipVideoCapture = true
         while !self.videoInput.isReadyForMoreMediaData {
             print("slepping for a while")
-            sleep(10)
+            usleep(100)
         }
         self.videoInput.markAsFinished()
         self.audioInput.markAsFinished()
@@ -193,6 +193,5 @@ public class BaseVideoWriter {
                 print("okay writes \(displayTime)")
             }
         }
-//        self.skipFrame = !self.skipFrame
     }
 }

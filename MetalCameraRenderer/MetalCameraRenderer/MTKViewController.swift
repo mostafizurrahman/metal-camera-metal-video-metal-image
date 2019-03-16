@@ -44,7 +44,7 @@ open class MTKViewController: UIViewController {
     
     /// Metal texture to be writen. All the animation and effect will be writen to this texture as output to the scene
     open var internalTexture: MTLTexture?
-   open var metalTexture: MTLTexture!
+    
     /// Base pipeline state to be used as compute command encoder.
     fileprivate var baseKernel:BaseKernelPipelineState?
     
@@ -198,9 +198,16 @@ open class MTKViewController: UIViewController {
         kernel.compute(inTexutr: texture,
                        outTexture: intTexture,
                        inComputeEncoder: commandEncoder)
+        if self.shouldWritetexture {
+            self.writeVideo(Texture: intTexture)
+        }
             
     }
+    var shouldWritetexture = false
     
+    func writeVideo(Texture intexture:MTLTexture){
+        
+    }
 }
 
 #if arch(i386) || arch(x86_64)
@@ -282,7 +289,7 @@ extension MTKViewController: MTKViewDelegate {
         
         commandBuffer.commit()
         commandBuffer.waitUntilCompleted()
-        self.metalTexture = texture
+        
        
 //        self.metalWriteQueue.async {
 //            self.writeTexture(texture)

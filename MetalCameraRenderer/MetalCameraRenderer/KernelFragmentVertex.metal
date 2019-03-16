@@ -46,12 +46,37 @@ kernel void WaveColorEffect(texture2d<float, access::sample> inTexture [[texture
                            uint2 gid [[thread_position_in_grid]],
                            uint2 tpg [[threads_per_grid]]){
     
-    constexpr sampler s(address::clamp_to_edge, filter::linear);
-    float2 uv = float2(gid)/float2(tpg);
-    float wave = sin(timeDelta[0]);
-    float circle = uv.x * uv.x + uv.y * uv.y;
-    float4 color = inTexture.sample(s, uv);
-    float4 newColor = float4(circle * color.r / wave  , color.g * wave,
-                             color.b * wave , wave ) + color * (1.0 - wave);
-    outTexture.write(newColor,gid);
+//    constexpr sampler s(address::clamp_to_edge, filter::linear);
+//    float2 uv = float2(gid)/float2(tpg);
+//    float wave = sin(timeDelta[0]);
+//    float circle = uv.x * uv.x + uv.y * uv.y;
+//    float4 color = inTexture.sample(s, uv);
+//    float4 newColor = float4(circle * color.r / wave  , color.g * wave,
+//                             color.b * wave , wave ) + color * (1.0 - wave);
+//    outTexture.write(newColor,gid);
+    
+    
+    float2 ngid = float2(gid);
+    ngid.x /= inTexture.get_width();
+    ngid.y /= inTexture.get_height();
+
+    float4 orig = inTexture.read(gid);
+
+    float2 p = -1.0 + 2.0 * orig.xy;
+    
+    float iGlobalTime = *timeDelta;
+
+    float x = p.x;
+    float y = p.y;
+
+    float mov0 = x + y + 1.0 * cos( 2.0*sin(iGlobalTime)) + 11.0 * sin(x/1.);
+    float mov1 = y / 0.9 + iGlobalTime;
+    float mov2 = x / 0.2;
+
+    float c1 = abs( 0.5 * sin(mov1 + iGlobalTime) + 0.5 * mov2 - mov1 - mov2 + iGlobalTime );
+    float c2 = abs( sin(c1 + sin(mov0/2. + iGlobalTime) + sin(y/1.0 + iGlobalTime) + 3.0 * sin((x+y)/1.)) );
+    float c3 = abs( sin(c2 + cos(mov1 + mov2 + c2) + cos(mov2) + sin(x/1.)) );
+
+    float4 colorAtPixel = float4(c1, c2, c3, 1.0);
+    outTexture.write(colorAtPixel, gid);
 }
