@@ -55,7 +55,7 @@ kernel void WaveColorEffect(texture2d<float, access::sample> inTexture [[texture
 //                             color.b * wave , wave ) + color * (1.0 - wave);
 //    outTexture.write(newColor,gid);
     
-    
+    //metal shader is taken from here :: https://www.invasivecode.com/weblog/metal-video-processing-ios-tvos/
     float2 ngid = float2(gid);
     ngid.x /= inTexture.get_width();
     ngid.y /= inTexture.get_height();
