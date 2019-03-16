@@ -27,6 +27,9 @@
 		A2861B0E218189F100535983 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2861B0D218189F100535983 /* CoreVideo.framework */; };
 		A2861B1021818C4D00535983 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2861B0F21818C4D00535983 /* CoreMedia.framework */; };
 		A2861B1221818C5300535983 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2861B1121818C5300535983 /* AVFoundation.framework */; };
+		BE05AD6A223D89A300E7FFC9 /* old_theme1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BE05AD68223D89A300E7FFC9 /* old_theme1.jpg */; };
+		BE05AD6B223D89A300E7FFC9 /* old_theme2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BE05AD69223D89A300E7FFC9 /* old_theme2.jpg */; };
+		BE05AD6D223D89F900E7FFC9 /* OldMoviePipelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE05AD6C223D89F900E7FFC9 /* OldMoviePipelineState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +55,9 @@
 		A2861B0D218189F100535983 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		A2861B0F21818C4D00535983 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		A2861B1121818C5300535983 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		BE05AD68223D89A300E7FFC9 /* old_theme1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = old_theme1.jpg; sourceTree = "<group>"; };
+		BE05AD69223D89A300E7FFC9 /* old_theme2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = old_theme2.jpg; sourceTree = "<group>"; };
+		BE05AD6C223D89F900E7FFC9 /* OldMoviePipelineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldMoviePipelineState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +94,8 @@
 		A2861ADD2181837200535983 /* MetalCameraRenderer */ = {
 			isa = PBXGroup;
 			children = (
+				BE05AD68223D89A300E7FFC9 /* old_theme1.jpg */,
+				BE05AD69223D89A300E7FFC9 /* old_theme2.jpg */,
 				A2861AFE2181853400535983 /* KernelFragmentVertex.metal */,
 				A2861B0A2181885800535983 /* MetalCameraCaptureDevice.swift */,
 				A2861B02218186AE00535983 /* BlackKernelPipelineState.swift */,
@@ -106,6 +114,7 @@
 				A2861AE52181837500535983 /* Assets.xcassets */,
 				A2861AE72181837500535983 /* LaunchScreen.storyboard */,
 				A2861AEA2181837500535983 /* Info.plist */,
+				BE05AD6C223D89F900E7FFC9 /* OldMoviePipelineState.swift */,
 			);
 			path = MetalCameraRenderer;
 			sourceTree = "<group>";
@@ -181,6 +190,8 @@
 				A2861AE92181837500535983 /* LaunchScreen.storyboard in Resources */,
 				A2861AE62181837500535983 /* Assets.xcassets in Resources */,
 				A2861AE42181837200535983 /* Main.storyboard in Resources */,
+				BE05AD6B223D89A300E7FFC9 /* old_theme2.jpg in Resources */,
+				BE05AD6A223D89A300E7FFC9 /* old_theme1.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,6 +214,7 @@
 				A2861AF9218183CA00535983 /* CameraVideoWriter.swift in Sources */,
 				A2861AF3218183AC00535983 /* MTKViewController.swift in Sources */,
 				A2861AF7218183C100535983 /* BaseVideoWriting.swift in Sources */,
+				BE05AD6D223D89F900E7FFC9 /* OldMoviePipelineState.swift in Sources */,
 				A2861AFF2181853400535983 /* KernelFragmentVertex.metal in Sources */,
 				A2861B052181870A00535983 /* MetalCameraSession.swift in Sources */,
 			);

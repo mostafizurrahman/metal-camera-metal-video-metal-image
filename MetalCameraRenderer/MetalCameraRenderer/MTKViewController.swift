@@ -156,9 +156,11 @@ open class MTKViewController: UIViewController {
         } catch  {
             assertionFailure("failed to create state")
         }
-        let data = [ self.metalLibrary, device, ["WaveColorEffect"]] as [AnyObject]
-        self.baseKernel = BlackKernelPipelineState(stateData: data)
-      
+//        let data = [ self.metalLibrary, device, ["WaveColorEffect"]] as [AnyObject]
+//        self.baseKernel = BlackKernelPipelineState(stateData: data)
+        
+        let data = [ self.metalLibrary, device, ["OldmovieEffect"], ["old_theme1"]] as [AnyObject]
+      self.baseKernel = OldMoviePipelineState(stateData: data)
     }
     
     
