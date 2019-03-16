@@ -39,6 +39,29 @@ fragment half4 FragmentFunction(TextureMappingVertex mappingVertex [[ stage_in ]
     
 }
 
+kernel void GifmovieEffect(texture2d<float, access::sample> inTexture [[texture(0)]],
+                           texture2d<float, access::write> outTexture [[texture(1)]],
+                           texture2d<float, access::sample> movieTexture [[texture(2)]],
+                           const device float *timeDelta [[ buffer(0) ]],
+                           uint2 gid [[thread_position_in_grid]],
+                           uint2 tpg [[threads_per_grid]]){
+    
+    float2 ngid = float2(gid);
+    ngid.x /= inTexture.get_width();
+    ngid.y /= inTexture.get_height();
+    float4 orig = inTexture.read(gid);
+    float4 mov = movieTexture.read(gid);
+    float val = mov.r*255.0;
+    if (val > 18.0 && val < 25.0){
+        outTexture.write(orig, gid);
+    } else {
+        float iGlobalTime = sin(*timeDelta);
+        float4 colorAtPixel = float4(orig*iGlobalTime+mov*(1.0-iGlobalTime));
+        outTexture.write(colorAtPixel, gid);
+    }
+    
+}
+
 kernel void OldmovieEffect(texture2d<float, access::sample> inTexture [[texture(0)]],
                             texture2d<float, access::write> outTexture [[texture(1)]],
                            texture2d<float, access::sample> movieTexture [[texture(2)]],

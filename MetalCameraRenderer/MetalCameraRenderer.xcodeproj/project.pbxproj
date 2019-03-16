@@ -30,6 +30,8 @@
 		BE05AD6A223D89A300E7FFC9 /* old_theme1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BE05AD68223D89A300E7FFC9 /* old_theme1.jpg */; };
 		BE05AD6B223D89A300E7FFC9 /* old_theme2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BE05AD69223D89A300E7FFC9 /* old_theme2.jpg */; };
 		BE05AD6D223D89F900E7FFC9 /* OldMoviePipelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE05AD6C223D89F900E7FFC9 /* OldMoviePipelineState.swift */; };
+		BE05AD71223D94EB00E7FFC9 /* GifKernelPipelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE05AD70223D94EB00E7FFC9 /* GifKernelPipelineState.swift */; };
+		BE05AD74223D9B2900E7FFC9 /* image.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE05AD73223D9B2900E7FFC9 /* image.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,8 @@
 		BE05AD68223D89A300E7FFC9 /* old_theme1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = old_theme1.jpg; sourceTree = "<group>"; };
 		BE05AD69223D89A300E7FFC9 /* old_theme2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = old_theme2.jpg; sourceTree = "<group>"; };
 		BE05AD6C223D89F900E7FFC9 /* OldMoviePipelineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldMoviePipelineState.swift; sourceTree = "<group>"; };
+		BE05AD70223D94EB00E7FFC9 /* GifKernelPipelineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifKernelPipelineState.swift; sourceTree = "<group>"; };
+		BE05AD73223D9B2900E7FFC9 /* image.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = image.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +102,7 @@
 				BE05AD69223D89A300E7FFC9 /* old_theme2.jpg */,
 				A2861AFE2181853400535983 /* KernelFragmentVertex.metal */,
 				A2861B0A2181885800535983 /* MetalCameraCaptureDevice.swift */,
+				BE05AD73223D9B2900E7FFC9 /* image.gif */,
 				A2861B02218186AE00535983 /* BlackKernelPipelineState.swift */,
 				A2861B002181869600535983 /* BaseKernelPipelineState.swift */,
 				A2861AFC218183D700535983 /* MetalVideoWriter.swift */,
@@ -115,6 +120,7 @@
 				A2861AE72181837500535983 /* LaunchScreen.storyboard */,
 				A2861AEA2181837500535983 /* Info.plist */,
 				BE05AD6C223D89F900E7FFC9 /* OldMoviePipelineState.swift */,
+				BE05AD70223D94EB00E7FFC9 /* GifKernelPipelineState.swift */,
 			);
 			path = MetalCameraRenderer;
 			sourceTree = "<group>";
@@ -189,6 +195,7 @@
 			files = (
 				A2861AE92181837500535983 /* LaunchScreen.storyboard in Resources */,
 				A2861AE62181837500535983 /* Assets.xcassets in Resources */,
+				BE05AD74223D9B2900E7FFC9 /* image.gif in Resources */,
 				A2861AE42181837200535983 /* Main.storyboard in Resources */,
 				BE05AD6B223D89A300E7FFC9 /* old_theme2.jpg in Resources */,
 				BE05AD6A223D89A300E7FFC9 /* old_theme1.jpg in Resources */,
@@ -207,6 +214,7 @@
 				A2861ADF2181837200535983 /* AppDelegate.swift in Sources */,
 				A2861B072181874000535983 /* VideoViewController.swift in Sources */,
 				A2861AF1218183A000535983 /* CameraViewController.swift in Sources */,
+				BE05AD71223D94EB00E7FFC9 /* GifKernelPipelineState.swift in Sources */,
 				A2861B03218186AE00535983 /* BlackKernelPipelineState.swift in Sources */,
 				A2861B092181876A00535983 /* MetalCameraSessionTypes.swift in Sources */,
 				A2861B012181869600535983 /* BaseKernelPipelineState.swift in Sources */,
