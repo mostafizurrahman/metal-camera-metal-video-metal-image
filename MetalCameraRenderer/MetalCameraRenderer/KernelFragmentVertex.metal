@@ -680,5 +680,62 @@ kernel void Pixelate(texture2d<float, access::sample> inTexture [[texture(0)]],
     
     outTexture.write(float4(tc, 1.0),gid);
     
+}
+
+float rand(float2 co){
+    return fract(sin( dot(co ,float2(12.9898,78.233))) * 43758.5453 );
+}
+
+kernel void ColorGlitch(texture2d<float, access::sample> inTexture [[texture(0)]],
+                     texture2d<float, access::write> outTexture [[texture(1)]],
+                     const device float *timeDelta [[ buffer(0) ]],
+                     uint2 gid [[thread_position_in_grid]],
+                     uint2 tpg [[threads_per_grid]]){
+    constexpr sampler source(address::clamp_to_edge, filter::linear);
+    float2 uv = float2(gid)/float2(tpg);
+    float t = sin(*timeDelta) * cos(*timeDelta);
+    
+//    float rt_w = inTexture.get_height(); // GeeXLab built-in
+//    float rt_h = inTexture.get_width(); // GeeXLab built-in
+    
+//    float _ChromAberrAmountY = 5;
+//    float _ChromAberrAmountX = 5;
+//    float2 _ChromAberrAmount = float2(_ChromAberrAmountX, _ChromAberrAmountY);
+//    float _RightStripesAmount = 5;
+//    float _LeftStripesAmount = 5;
+//    float _RightStripesFill = 10;
+//    float _LeftStripesFill = 10;
+    //Stripes section
+//    float stripesRight = floor(uv.y * _RightStripesAmount);
+//    stripesRight = step(_RightStripesFill, rand(float2(stripesRight, stripesRight)));
+    
+//    float stripesLeft = floor(uv.y * _LeftStripesAmount);
+//    stripesLeft = step(_LeftStripesFill, rand(float2(stripesLeft, stripesLeft)));
+    //Stripes section
+//    float _WavyDisplFreq = 10;
+//    float4 wavyDispl = mix(float4(1,0,0,1), float4(0,1,0,1), (sin(uv.y * _WavyDisplFreq) + 1) / 2);
+//    float4 _DisplacementAmount = float4(0.3, 0.5, 0.1, 0.6);
+    //Displacement section
+//    float2 displUV = (_DisplacementAmount.xy * stripesRight) - (_DisplacementAmount.xy * stripesLeft);
+//    displUV += (_DisplacementAmount.zw * wavyDispl.r) - (_DisplacementAmount.zw * wavyDispl.g);
+    //Displacement section
+    
+    //Chromatic aberration section
+//    float2 uv1 = float2(0.15)*t;
+//    if (uv1.y < 0 || uv1.y > 1.0 || uv1.x < 0 || uv1.x > 1.0){
+//        uv1 = float2(0);
+//    }
+//    float2 uv2 = float2(0.21)*t;
+//    if (uv2.y < 0 || uv2.y > 1.0 || uv2.x < 0 || uv2.x > 1.0){
+//        uv2 = float2(0);
+//    }
+    float chromR = inTexture.sample(source, uv + float2(0.15)*t).r;
+    float chromG = inTexture.sample(source, uv + float2(0.21)*t).g;
+    float chromB = inTexture.sample(source, uv).b;
+    //Chromatic aberration section
+    
+    float4 finalCol = float4(chromR, chromG, chromB, 1);
+    
+    outTexture.write(finalCol,gid);
     
 }
