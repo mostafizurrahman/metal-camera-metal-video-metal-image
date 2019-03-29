@@ -33,6 +33,13 @@
 		BE05AD71223D94EB00E7FFC9 /* GifKernelPipelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE05AD70223D94EB00E7FFC9 /* GifKernelPipelineState.swift */; };
 		BE05AD74223D9B2900E7FFC9 /* image.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE05AD73223D9B2900E7FFC9 /* image.gif */; };
 		BE063FE1224E232800D51C27 /* EffectKernelPipelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE063FE0224E232800D51C27 /* EffectKernelPipelineState.swift */; };
+		BE063FE8224EA82500D51C27 /* mask5.png in Resources */ = {isa = PBXBuildFile; fileRef = BE063FE2224EA82400D51C27 /* mask5.png */; };
+		BE063FE9224EA82500D51C27 /* mask1.png in Resources */ = {isa = PBXBuildFile; fileRef = BE063FE3224EA82400D51C27 /* mask1.png */; };
+		BE063FEA224EA82500D51C27 /* mask0.png in Resources */ = {isa = PBXBuildFile; fileRef = BE063FE4224EA82500D51C27 /* mask0.png */; };
+		BE063FEB224EA82500D51C27 /* mask2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BE063FE5224EA82500D51C27 /* mask2.jpg */; };
+		BE063FEC224EA82500D51C27 /* mask3.png in Resources */ = {isa = PBXBuildFile; fileRef = BE063FE6224EA82500D51C27 /* mask3.png */; };
+		BE063FED224EA82500D51C27 /* mask4.png in Resources */ = {isa = PBXBuildFile; fileRef = BE063FE7224EA82500D51C27 /* mask4.png */; };
+		BE063FEF224EA88D00D51C27 /* MaskKernelPipelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE063FEE224EA88D00D51C27 /* MaskKernelPipelineState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +71,13 @@
 		BE05AD70223D94EB00E7FFC9 /* GifKernelPipelineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifKernelPipelineState.swift; sourceTree = "<group>"; };
 		BE05AD73223D9B2900E7FFC9 /* image.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = image.gif; sourceTree = "<group>"; };
 		BE063FE0224E232800D51C27 /* EffectKernelPipelineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectKernelPipelineState.swift; sourceTree = "<group>"; };
+		BE063FE2224EA82400D51C27 /* mask5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask5.png; sourceTree = "<group>"; };
+		BE063FE3224EA82400D51C27 /* mask1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask1.png; sourceTree = "<group>"; };
+		BE063FE4224EA82500D51C27 /* mask0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask0.png; sourceTree = "<group>"; };
+		BE063FE5224EA82500D51C27 /* mask2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mask2.jpg; sourceTree = "<group>"; };
+		BE063FE6224EA82500D51C27 /* mask3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask3.png; sourceTree = "<group>"; };
+		BE063FE7224EA82500D51C27 /* mask4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask4.png; sourceTree = "<group>"; };
+		BE063FEE224EA88D00D51C27 /* MaskKernelPipelineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskKernelPipelineState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,10 +115,16 @@
 			isa = PBXGroup;
 			children = (
 				BE05AD68223D89A300E7FFC9 /* old_theme1.jpg */,
+				BE063FE4224EA82500D51C27 /* mask0.png */,
+				BE063FE3224EA82400D51C27 /* mask1.png */,
+				BE063FE5224EA82500D51C27 /* mask2.jpg */,
+				BE063FE6224EA82500D51C27 /* mask3.png */,
+				BE063FE7224EA82500D51C27 /* mask4.png */,
+				BE063FE2224EA82400D51C27 /* mask5.png */,
 				BE05AD69223D89A300E7FFC9 /* old_theme2.jpg */,
 				A2861AFE2181853400535983 /* KernelFragmentVertex.metal */,
-				A2861B0A2181885800535983 /* MetalCameraCaptureDevice.swift */,
 				BE05AD73223D9B2900E7FFC9 /* image.gif */,
+				A2861B0A2181885800535983 /* MetalCameraCaptureDevice.swift */,
 				A2861B02218186AE00535983 /* BlackKernelPipelineState.swift */,
 				A2861B002181869600535983 /* BaseKernelPipelineState.swift */,
 				A2861AFC218183D700535983 /* MetalVideoWriter.swift */,
@@ -124,6 +144,7 @@
 				BE05AD6C223D89F900E7FFC9 /* OldMoviePipelineState.swift */,
 				BE05AD70223D94EB00E7FFC9 /* GifKernelPipelineState.swift */,
 				BE063FE0224E232800D51C27 /* EffectKernelPipelineState.swift */,
+				BE063FEE224EA88D00D51C27 /* MaskKernelPipelineState.swift */,
 			);
 			path = MetalCameraRenderer;
 			sourceTree = "<group>";
@@ -196,10 +217,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE063FED224EA82500D51C27 /* mask4.png in Resources */,
+				BE063FEA224EA82500D51C27 /* mask0.png in Resources */,
+				BE063FE8224EA82500D51C27 /* mask5.png in Resources */,
+				BE063FE9224EA82500D51C27 /* mask1.png in Resources */,
 				A2861AE92181837500535983 /* LaunchScreen.storyboard in Resources */,
+				BE063FEB224EA82500D51C27 /* mask2.jpg in Resources */,
 				A2861AE62181837500535983 /* Assets.xcassets in Resources */,
 				BE05AD74223D9B2900E7FFC9 /* image.gif in Resources */,
 				A2861AE42181837200535983 /* Main.storyboard in Resources */,
+				BE063FEC224EA82500D51C27 /* mask3.png in Resources */,
 				BE05AD6B223D89A300E7FFC9 /* old_theme2.jpg in Resources */,
 				BE05AD6A223D89A300E7FFC9 /* old_theme1.jpg in Resources */,
 			);
@@ -218,6 +245,7 @@
 				A2861B072181874000535983 /* VideoViewController.swift in Sources */,
 				A2861AF1218183A000535983 /* CameraViewController.swift in Sources */,
 				BE05AD71223D94EB00E7FFC9 /* GifKernelPipelineState.swift in Sources */,
+				BE063FEF224EA88D00D51C27 /* MaskKernelPipelineState.swift in Sources */,
 				A2861B03218186AE00535983 /* BlackKernelPipelineState.swift in Sources */,
 				A2861B092181876A00535983 /* MetalCameraSessionTypes.swift in Sources */,
 				A2861B012181869600535983 /* BaseKernelPipelineState.swift in Sources */,

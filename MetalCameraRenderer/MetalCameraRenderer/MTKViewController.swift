@@ -156,8 +156,9 @@ open class MTKViewController: UIViewController {
         } catch  {
             assertionFailure("failed to create state")
         }
-        let data = [ self.metalLibrary, device, ["ColorGlitch"]] as [AnyObject]
-        self.baseKernel = EffectKernelPipelineState(stateData: data)
+        let data = [ self.metalLibrary, device, ["MaskBlendHardLight"], ["mask4.png"]] as [AnyObject]
+//        self.baseKernel = EffectKernelPipelineState(stateData: data)
+        self.baseKernel = MaskKernelPipelineState(stateData: data)
         
 //        let data = [ self.metalLibrary, device, ["GifmovieEffect"], ["image"]] as [AnyObject]
 //      self.baseKernel = GifKernelPipelineState(stateData: data)

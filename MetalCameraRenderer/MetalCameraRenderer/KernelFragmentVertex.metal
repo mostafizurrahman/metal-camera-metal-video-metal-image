@@ -8,6 +8,34 @@
 
 #include <metal_stdlib>
 using namespace metal;
+
+
+float3 blendPhoenix(float3 base, float3 blend) {
+    return min(base,blend)-max(base,blend)+float3(1.0);
+}
+
+float3 blendPhoenix(float3 base, float3 blend, float opacity) {
+    return (blendPhoenix(base, blend) * opacity + base * (1.0 - opacity));
+}
+
+
+
+float blendOverlay(float base, float blend) {
+    return base<0.5?(2.0*base*blend):(1.0-2.0*(1.0-base)*(1.0-blend));
+}
+
+float3 blendOverlay(float3 base, float3 blend) {
+    return float3(blendOverlay(base.r,blend.r),blendOverlay(base.g,blend.g),blendOverlay(base.b,blend.b));
+}
+
+float3 blendOverlay(float3 base, float3 blend, float opacity) {
+    return (blendOverlay(base, blend) * opacity + base * (1.0 - opacity));
+}
+
+
+
+
+
 float3 mod289(float3 x) {
     return x - floor(x * (1.0 / 289.0)) * 289.0;
 }
@@ -229,7 +257,7 @@ kernel void OldmovieEffect(texture2d<float, access::sample> inTexture [[texture(
     outTexture.write(colorAtPixel, gid);
 }
 
-kernel void WaveColorEffect(texture2d<float, access::sample> inTexture [[texture(0)]],
+kernel void WafloatolorEffect(texture2d<float, access::sample> inTexture [[texture(0)]],
                            texture2d<float, access::write> outTexture [[texture(1)]],
                            const device float *timeDelta [[ buffer(0) ]],
                            uint2 gid [[thread_position_in_grid]],
@@ -244,7 +272,7 @@ kernel void WaveColorEffect(texture2d<float, access::sample> inTexture [[texture
 //                             color.b * wave , wave ) + color * (1.0 - wave);
 //    outTexture.write(newColor,gid);
     
-    //metal shader is taken from here :: https://www.invasivecode.com/weblog/metal-video-processing-ios-tvos/
+    //metal shader is taken from here :: https://www.invasifloatode.com/weblog/metal-video-processing-ios-tvos/
     float2 ngid = float2(gid);
     ngid.x /= inTexture.get_width();
     ngid.y /= inTexture.get_height();
@@ -342,7 +370,7 @@ kernel void HSBEffect(texture2d<float, access::sample> inTexture [[texture(0)]],
     float4 color = float4(rgb2hsb(conv.rgb),1.0);
     
     // Put it all together
-    //    gl_FragColor = vec4(vec3(circle + wave),1.0);
+    //    gl_FragColor = float4(float3(circle + wave),1.0);
     float4 generatedcolor = float4(circle * color.r / wave  , color.g * wave,  color.b * wave , wave ) + conv * (1.0 - wave);
     outTexture.write(generatedcolor,gid);
 }
@@ -738,4 +766,63 @@ kernel void ColorGlitch(texture2d<float, access::sample> inTexture [[texture(0)]
     
     outTexture.write(finalCol,gid);
     
+}
+
+
+kernel void ColorBurn(texture2d<float, access::sample> inTexture [[texture(0)]],
+                        texture2d<float, access::write> outTexture [[texture(1)]],
+                        const device float *timeDelta [[ buffer(0) ]],
+                        uint2 gid [[thread_position_in_grid]],
+                        uint2 tpg [[threads_per_grid]]){
+    constexpr sampler source(address::clamp_to_edge, filter::linear);
+    float2 uv = float2(gid)/float2(tpg);
+//    float t = sin(*timeDelta) * cos(*timeDelta);
+    float2 uv1 =  uv + float2(0.15);
+    if ( uv1.y > 1.0 || uv1.x > 1.0){
+        uv1 = uv;
+    }
+    float4 blend = inTexture.sample(source,uv1);
+    float4 base = inTexture.sample(source, uv);
+    
+//    if (uv.x < 0.5) {
+//        float4 result = 2.0 * base * blend;
+//        outTexture.write(result,gid);
+//    } else {
+        float4 result = float4(1.0) - 2.0 * (float4(1.0) - blend) * (float4(1.0) - base);
+        outTexture.write(result,gid);
+//    }
+}
+
+
+kernel void MaskBlendOverlay(texture2d<float, access::sample> inTexture [[texture(0)]],
+                           texture2d<float, access::write> outTexture [[texture(1)]],
+                           texture2d<float, access::sample> movieTexture [[texture(2)]],
+                           const device float *timeDelta [[ buffer(0) ]],
+                           uint2 gid [[thread_position_in_grid]],
+                           uint2 tpg [[threads_per_grid]]){
+    float2 ngid = float2(gid);
+    ngid.x /= inTexture.get_width();
+    ngid.y /= inTexture.get_height();
+    float4 base = inTexture.read(gid);
+    float4 blend = movieTexture.read(gid);
+    float3 color = blendOverlay(base.rgb, blend.rgb);
+    
+    outTexture.write(float4(color,1), gid);
+}
+
+
+kernel void MaskBlendHardLight(texture2d<float, access::sample> inTexture [[texture(0)]],
+                               texture2d<float, access::write> outTexture [[texture(1)]],
+                               texture2d<float, access::sample> movieTexture [[texture(2)]],
+                               const device float *timeDelta [[ buffer(0) ]],
+                               uint2 gid [[thread_position_in_grid]],
+                               uint2 tpg [[threads_per_grid]]){
+    float2 ngid = float2(gid);
+    ngid.x /= inTexture.get_width();
+    ngid.y /= inTexture.get_height();
+    float4 base = inTexture.read(gid);
+    float4 blend = movieTexture.read(gid);
+    float3 color = blendPhoenix(blend.rgb, base.rgb) ;
+    
+    outTexture.write(float4(color,1), gid);
 }
