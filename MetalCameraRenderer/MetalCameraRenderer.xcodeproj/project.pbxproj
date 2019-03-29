@@ -32,6 +32,7 @@
 		BE05AD6D223D89F900E7FFC9 /* OldMoviePipelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE05AD6C223D89F900E7FFC9 /* OldMoviePipelineState.swift */; };
 		BE05AD71223D94EB00E7FFC9 /* GifKernelPipelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE05AD70223D94EB00E7FFC9 /* GifKernelPipelineState.swift */; };
 		BE05AD74223D9B2900E7FFC9 /* image.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE05AD73223D9B2900E7FFC9 /* image.gif */; };
+		BE063FE1224E232800D51C27 /* EffectKernelPipelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE063FE0224E232800D51C27 /* EffectKernelPipelineState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		BE05AD6C223D89F900E7FFC9 /* OldMoviePipelineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldMoviePipelineState.swift; sourceTree = "<group>"; };
 		BE05AD70223D94EB00E7FFC9 /* GifKernelPipelineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifKernelPipelineState.swift; sourceTree = "<group>"; };
 		BE05AD73223D9B2900E7FFC9 /* image.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = image.gif; sourceTree = "<group>"; };
+		BE063FE0224E232800D51C27 /* EffectKernelPipelineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectKernelPipelineState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 				A2861AEA2181837500535983 /* Info.plist */,
 				BE05AD6C223D89F900E7FFC9 /* OldMoviePipelineState.swift */,
 				BE05AD70223D94EB00E7FFC9 /* GifKernelPipelineState.swift */,
+				BE063FE0224E232800D51C27 /* EffectKernelPipelineState.swift */,
 			);
 			path = MetalCameraRenderer;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 				A2861AF7218183C100535983 /* BaseVideoWriting.swift in Sources */,
 				BE05AD6D223D89F900E7FFC9 /* OldMoviePipelineState.swift in Sources */,
 				A2861AFF2181853400535983 /* KernelFragmentVertex.metal in Sources */,
+				BE063FE1224E232800D51C27 /* EffectKernelPipelineState.swift in Sources */,
 				A2861B052181870A00535983 /* MetalCameraSession.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

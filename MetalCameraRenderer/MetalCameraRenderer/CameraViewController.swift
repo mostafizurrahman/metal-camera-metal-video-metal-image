@@ -129,9 +129,7 @@ internal final class CameraViewController: MTKViewController {
                     return
                 }
                 
-                self.serialQueue.async {
-                    metalWriter.append(metalTexture: intexture, atTime: time)
-                }
+                metalWriter.append(metalTexture: intexture, atTime: time)
             }
         }
     }

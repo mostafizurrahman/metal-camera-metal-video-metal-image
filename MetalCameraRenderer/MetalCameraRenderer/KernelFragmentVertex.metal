@@ -8,7 +8,157 @@
 
 #include <metal_stdlib>
 using namespace metal;
+float3 mod289(float3 x) {
+    return x - floor(x * (1.0 / 289.0)) * 289.0;
+}
 
+float4 mod289(float4 x) {
+    return x - floor(x * (1.0 / 289.0)) * 289.0;
+}
+
+float4 permute(float4 x) {
+    return mod289(((x*34.0)+1.0)*x);
+}
+
+float4 taylorInvSqrt(float4 r)
+{
+    return 1.79284291400159 - 0.85373472095314 * r;
+}
+float snoise3(float3 v)
+{
+    const float2  C = float2(1.0/6.0, 1.0/3.0) ;
+    const float4  D = float4(0.0, 0.5, 1.0, 2.0);
+    
+    // First corner
+    float3 i  = floor(v + dot(v, C.yyy) );
+    float3 x0 =   v - i + dot(i, C.xxx) ;
+    
+    // Other corners
+    float3 g = step(x0.yzx, x0.xyz);
+    float3 l = 1.0 - g;
+    float3 i1 = min( g.xyz, l.zxy );
+    float3 i2 = max( g.xyz, l.zxy );
+    
+    //   x0 = x0 - 0.0 + 0.0 * C.xxx;
+    //   x1 = x0 - i1  + 1.0 * C.xxx;
+    //   x2 = x0 - i2  + 2.0 * C.xxx;
+    //   x3 = x0 - 1.0 + 3.0 * C.xxx;
+    float3 x1 = x0 - i1 + C.xxx;
+    float3 x2 = x0 - i2 + C.yyy; // 2.0*C.x = 1/3 = C.y
+    float3 x3 = x0 - D.yyy;      // -1.0+3.0*C.x = -0.5 = -D.y
+    
+    // Permutations
+    i = mod289(i);
+    float4 p = permute( permute( permute(
+                                         i.z + float4(0.0, i1.z, i2.z, 1.0 ))
+                                + i.y + float4(0.0, i1.y, i2.y, 1.0 ))
+                       + i.x + float4(0.0, i1.x, i2.x, 1.0 ));
+    
+    // Gradients: 7x7 points over a square, mapped onto an octahedron.
+    // The ring size 17*17 = 289 is close to a multiple of 49 (49*6 = 294)
+    float n_ = 0.142857142857; // 1.0/7.0
+    float3  ns = n_ * D.wyz - D.xzx;
+    
+    float4 j = p - 49.0 * floor(p * ns.z * ns.z);  //  mod(p,7*7)
+    
+    float4 x_ = floor(j * ns.z);
+    float4 y_ = floor(j - 7.0 * x_ );    // mod(j,N)
+    
+    float4 x = x_ *ns.x + ns.yyyy;
+    float4 y = y_ *ns.x + ns.yyyy;
+    float4 h = 1.0 - abs(x) - abs(y);
+    
+    float4 b0 = float4( x.xy, y.xy );
+    float4 b1 = float4( x.zw, y.zw );
+    
+    //float4 s0 = float4(lessThan(b0,0.0))*2.0 - 1.0;
+    //float4 s1 = float4(lessThan(b1,0.0))*2.0 - 1.0;
+    float4 s0 = floor(b0)*2.0 + 1.0;
+    float4 s1 = floor(b1)*2.0 + 1.0;
+    float4 sh = -step(h, float4(0.0));
+    
+    float4 a0 = b0.xzyw + s0.xzyw*sh.xxyy ;
+    float4 a1 = b1.xzyw + s1.xzyw*sh.zzww ;
+    
+    float3 p0 = float3(a0.xy,h.x);
+    float3 p1 = float3(a0.zw,h.y);
+    float3 p2 = float3(a1.xy,h.z);
+    float3 p3 = float3(a1.zw,h.w);
+    
+    //Normalise gradients
+    float4 norm = taylorInvSqrt(float4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
+    p0 *= norm.x;
+    p1 *= norm.y;
+    p2 *= norm.z;
+    p3 *= norm.w;
+    
+    // Mix final noise value
+    float4 m = max(0.6 - float4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+    m = m * m;
+    return 42.0 * dot( m*m, float4( dot(p0,x0), dot(p1,x1),
+                                   dot(p2,x2), dot(p3,x3) ) );
+}
+
+float2 mod(float2 xx, float2 yy){
+    float __x = xx.x - yy.x * floor(xx.x/yy.x);
+    float __y = xx.y - yy.y * floor(xx.y/yy.y);
+    return float2(__x, __y);
+}
+float _mod(float f1, float f2){
+    return f1 - f2 * floor(f1/f2);
+}
+float3 rgb2hsb(  float3 c ){
+    float4 K = float4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
+    float4 p = mix(float4(c.bg, K.wz),
+                   float4(c.gb, K.xy),
+                   step(c.b, c.g));
+    float4 q = mix(float4(p.xyw, c.r),
+                   float4(c.r, p.yzx),
+                   step(p.x, c.r));
+    float d = q.x - min(q.w, q.y);
+    float e = 1.0e-10;
+    return float3(abs(q.z + (q.w - q.y) / (6.0 * d + e)),
+                  d / (q.x + e),
+                  q.x);
+}
+
+float2 barrelDistortion(float2 _coord, float amt) {
+    float2 cc = _coord - 0.5;
+    float dist = dot(cc, cc);
+    return _coord + cc * dist * amt;
+}
+
+float sat( float t )
+{
+    return clamp( t, 0.0, 1.0 );
+}
+
+float linterp( float t ) {
+    return sat( 1.0 - abs( 2.0*t - 1.0 ) );
+}
+
+float remap( float t, float a, float b ) {
+    return sat( (t - a) / (b - a) );
+}
+
+float3 spectrum_offset( float t ) {
+    float3 ret;
+    float lo = step(t,0.5);
+    float hi = 1.0-lo;
+    float w = linterp( remap( t, 1.0/6.0, 5.0/6.0 ) );
+    ret = float3(lo,1.0,hi) * float3(1.0-w, w, 1.0-w);
+    
+    return pow( ret, float3(1.0/2.2) );
+}
+
+
+
+float max(float _f1, float _f2){
+    if (_f1 > _f2) {
+        return _f1;
+    }
+    return _f2;
+}
 
 typedef struct {
     float4 renderedCoordinate [[position]];
@@ -118,4 +268,327 @@ kernel void WaveColorEffect(texture2d<float, access::sample> inTexture [[texture
 
     float4 colorAtPixel = float4(c1, c2, c3, 1.0);
     outTexture.write(colorAtPixel, gid);
+}
+
+kernel void waterEffect(texture2d<float, access::sample> inTexture [[texture(0)]],
+                        texture2d<float, access::write> outTexture [[texture(1)]],
+                        const device float *timeDelta [[ buffer(0) ]],
+                        uint2 gid [[thread_position_in_grid]],
+                        uint2 tpg [[threads_per_grid]]){
+    
+    constexpr sampler textureSampler(address::clamp_to_edge, filter::linear);
+    
+    const float2 tc = float2(gid) / float2(tpg);
+    float2 p = float2(-1.0) + 2.0 * tc;
+    float len = length(p);
+    float2 uv = tc + (p/len)*cos(len*12.0-timeDelta[0]*4.0)*0.03;
+    float4 color = inTexture.sample(textureSampler,uv).rgba;
+    outTexture.write(color, gid);
+}
+
+kernel void waterMirrorEffect(texture2d<float, access::sample> inTexture [[texture(0)]],
+                              texture2d<float, access::write> outTexture [[texture(1)]],
+                              const device float *timeDelta [[ buffer(0) ]],
+                              uint2 gid [[thread_position_in_grid]],
+                              uint2 tpg [[threads_per_grid]]){
+    
+    constexpr sampler textureSampler(address::clamp_to_edge, filter::linear);
+    
+    const float2 tc = float2(gid) / float2(tpg);
+    if (tc.y < 0.5){
+        float4 color = inTexture.sample(textureSampler,tc).rgba;
+        outTexture.write(color, gid);
+    } else{
+        tc.y = 1.0 - tc.y ;
+        float2 p = float2(-1.0) + 2.0 * tc;
+        float len = length(p);
+        float2 uv = tc + (p/len)*cos(len*12.0-timeDelta[0]*4.0)*0.03;
+        float4 color = inTexture.sample(textureSampler,uv).rgba;
+        outTexture.write(color, gid);
+    }
+    
+}
+
+
+kernel void wavColorEffect(texture2d<float, access::sample> inTexture [[texture(0)]],
+                           texture2d<float, access::write> outTexture [[texture(1)]],
+                           const device float *timeDelta [[ buffer(0) ]],
+                           uint2 gid [[thread_position_in_grid]],
+                           uint2 tpg [[threads_per_grid]]){
+    
+    constexpr sampler s(address::clamp_to_edge, filter::linear);
+    float2 uv = float2(gid)/float2(tpg);
+    float wave = sin(timeDelta[0]);
+    float circle = uv.x * uv.x + uv.y * uv.y;
+    float4 color = inTexture.sample(s, uv);
+    float4 newColor = float4(circle * color.r / wave  , color.g * wave,  color.b * wave , wave ) + color * (1.0 - wave);
+    outTexture.write(newColor,gid);
+}
+
+
+
+
+kernel void HSBEffect(texture2d<float, access::sample> inTexture [[texture(0)]],
+                      texture2d<float, access::write> outTexture [[texture(1)]],
+                      const device float *timeDelta [[ buffer(0) ]],
+                      uint2 gid [[thread_position_in_grid]],
+                      uint2 tpg [[threads_per_grid]]){
+    
+    constexpr sampler s(address::clamp_to_edge, filter::linear);
+    float2 uv = float2(gid)/float2(tpg);
+    float wave = sin(timeDelta[0]);
+    float circle = uv.x * uv.y + uv.y * uv.x;
+    const float4 conv =  inTexture.sample(s, uv);
+    float4 color = float4(rgb2hsb(conv.rgb),1.0);
+    
+    // Put it all together
+    //    gl_FragColor = vec4(vec3(circle + wave),1.0);
+    float4 generatedcolor = float4(circle * color.r / wave  , color.g * wave,  color.b * wave , wave ) + conv * (1.0 - wave);
+    outTexture.write(generatedcolor,gid);
+}
+
+
+kernel void spectrumColor(texture2d<float, access::sample> inTexture [[texture(0)]],
+                          texture2d<float, access::write> outTexture [[texture(1)]],
+                          const device float *timeDelta [[ buffer(0) ]],
+                          uint2 gid [[thread_position_in_grid]],
+                          uint2 tpg [[threads_per_grid]]) {
+    
+    constexpr sampler s(address::clamp_to_edge, filter::linear);
+    float2 resolution = float2(gid.xy);
+    float2 err = 10.0 * float2(cos(timeDelta[0]), sin(timeDelta[0]));
+    float2 xy = err / resolution;
+    
+    float2 uv = float2(gid) / float2(tpg);
+    float4 color = inTexture.sample(s, uv);
+    
+    float4 color1 = inTexture.sample(s, uv + mod(xy, uv));
+    
+    outTexture.write(color1.gbra * color.agrb, gid);
+    
+}
+
+
+kernel void noiseEffect(texture2d<float, access::sample> inTexture [[texture(0)]],
+                        texture2d<float, access::write> outTexture [[texture(1)]],
+                        texture2d<float, access::sample> sampleTexture [[texture(2)]],
+                        const device float *timeDelta [[ buffer(0) ]],
+                        uint2 gid [[thread_position_in_grid]],
+                        uint2 tpg [[threads_per_grid]]){
+    
+    constexpr sampler source(address::clamp_to_edge, filter::linear);
+    constexpr sampler noise(address::clamp_to_edge, filter::linear);
+    float2 uv = float2(gid)/float2(tpg);
+    //    uv.y = uv.y;
+    half trheshold =  sin(timeDelta[0]);
+    float2 n_uv = float2(gid)/float2(tpg);
+    float4 sourcePixel = inTexture.sample(source, uv);
+    float4 ditherPixel = sampleTexture.sample(noise, n_uv);
+    
+    
+    float4 color = (ditherPixel - trheshold) * trheshold * 0.5  + sourcePixel * 0.5;
+    if (color.r < 0 || color.a <= 0) {
+        float4 colorOne = sourcePixel * 0.75 + (ditherPixel) * 0.25;
+        outTexture.write(colorOne,gid);
+    }
+    outTexture.write(color,gid);
+    // return color;
+    
+    
+}
+
+
+kernel void colorTransferEffect(texture2d<float, access::sample> inTexture [[texture(0)]],
+                                texture2d<float, access::write> outTexture [[texture(1)]],
+                                const device float *timeDelta [[ buffer(0) ]],
+                                uint2 gid [[thread_position_in_grid]],
+                                uint2 tpg [[threads_per_grid]]){
+    
+    constexpr sampler source(address::clamp_to_edge, filter::linear);
+    float2 uv = float2(gid)/float2(tpg);
+    
+    float trheshold =  sin(timeDelta[0]);
+    float square_T = trheshold *= trheshold;
+    
+    float width = 1080;
+    float height = 1920;
+    float w = 1.0 / width;
+    float h = 1.0 / height;
+    float2 wh = float2(w,h);
+    float4 color = inTexture.sample(source, uv);
+    float4 color1 = inTexture.sample(source, uv+wh) * color / square_T;
+    float4 color2 = inTexture.sample(source, uv-wh) ;
+    color2.a = 1.0;
+    color2.r = color1.r;
+    color2.gb = color2.gb * color1.gb;
+    outTexture.write(color2,gid);
+}
+
+
+kernel void gradientEffect(texture2d<float, access::sample> inTexture [[texture(0)]],
+                           texture2d<float, access::write> outTexture [[texture(1)]],
+                           const device float *timeDelta [[ buffer(0) ]],
+                           uint2 gid [[thread_position_in_grid]],
+                           uint2 tpg [[threads_per_grid]]){
+    constexpr sampler source(address::clamp_to_edge, filter::linear);
+    float2 uv = float2(gid)/float2(tpg);
+    
+    float trheshold =  sin(timeDelta[0]);
+    float square_T = trheshold *= trheshold;
+    
+    float4 pixcol = inTexture.sample(source, uv);
+    
+    
+    float4 finalColor = pixcol * float4(uv.x, uv.y, square_T, 1.0);
+    outTexture.write(finalColor,gid);
+}
+
+
+kernel void barrelffect(texture2d<float, access::sample> inTexture [[texture(0)]],
+                        texture2d<float, access::write> outTexture [[texture(1)]],
+                        uint2 gid [[thread_position_in_grid]],
+                        uint2 tpg [[threads_per_grid]]){
+    
+    float barrelPower = 1.5;
+    
+    const int num_iter = 12;
+    const float reci_num_iter_f = 1.0 / float(num_iter);
+    float2 uv = float2(gid) / float2(tpg);
+    constexpr sampler s(address::clamp_to_edge, filter::linear);
+    float3 sumcol = float3(0.0);
+    float3 sumw = float3(0.0);
+    for ( int i=0; i<num_iter;++i )
+    {
+        float t = float(i) * reci_num_iter_f;
+        float3 w = spectrum_offset( t );
+        sumw += w;
+        float4 color = inTexture.sample(s, barrelDistortion(uv, barrelPower*t ));
+        sumcol += w * color.rgb;
+    }
+    float4 color = float4(float3(float3(sumcol.rgb) / float3(sumw.rgb)), 1.0);
+    outTexture.write(color,gid);
+}
+
+float random(float2 c){
+    return fract(sin(dot(c.xy ,float2(12.9898,78.233))) * 43758.5453);
+}
+
+kernel void glitchEffect(texture2d<float, access::sample> inTexture [[texture(0)]],
+                         texture2d<float, access::write> outTexture [[texture(1)]],
+                         const device float *timeDelta [[ buffer(0) ]],
+                         uint2 gid [[thread_position_in_grid]],
+                         uint2 tpg [[threads_per_grid]]){
+    
+    
+    constexpr sampler source(address::clamp_to_edge, filter::linear);
+    float2 vUv = float2(gid)/float2(tpg);
+    
+    float interval = 3.0;
+    
+    float time = timeDelta[0];
+    float2 resolution = float2(inTexture.get_width(),inTexture.get_height());
+    
+    float strength = smoothstep(interval * 0.5, interval, interval - _mod(time, interval));
+    float2 shake = float2(strength * 8.0 + 0.5) * float2(
+                                                         random(float2(time)) * 2.0 - 1.0,
+                                                         random(float2(time * 2.0)) * 2.0 - 1.0
+                                                         ) / resolution;
+    
+    float y = vUv.y * resolution.y;
+    float rgbWave = (
+                     snoise3(float3(0.0, y * 0.01, time * 400.0)) * (2.0 + strength * 32.0)
+                     * snoise3(float3(0.0, y * 0.02, time * 200.0)) * (1.0 + strength * 4.0)
+                     + step(0.9995, sin(y * 0.005 + time * 1.6)) * 12.0
+                     + step(0.9999, sin(y * 0.005 + time * 2.0)) * -18.0
+                     ) / resolution.x;
+    float rgbDiff = (6.0 + sin(time * 500.0 + vUv.y * 40.0) * (20.0 * strength + 1.0)) / resolution.x;
+    float rgbUvX = vUv.x + rgbWave;
+    float r = inTexture.sample(source, float2(rgbUvX + rgbDiff, vUv.y) + shake).r;
+    float g = inTexture.sample(source, float2(rgbUvX, vUv.y) + shake).g;
+    float b = inTexture.sample(source, float2(rgbUvX - rgbDiff, vUv.y) + shake).b;
+    
+    float whiteNoise = (random(vUv + _mod(time, 10.0)) * 2.0 - 1.0) * (0.15 + strength * 0.15);
+    
+    float bnTime = floor(time * 20.0) * 200.0;
+    float noiseX = step((snoise3(float3(0.0, vUv.x * 3.0, bnTime)) + 1.0) / 2.0, 0.12 + strength * 0.3);
+    float noiseY = step((snoise3(float3(0.0, vUv.y * 3.0, bnTime)) + 1.0) / 2.0, 0.12 + strength * 0.3);
+    float bnMask = noiseX * noiseY;
+    float bnUvX = vUv.x + sin(bnTime) * 0.2 + rgbWave;
+    float bnR = inTexture.sample(source, float2(bnUvX + rgbDiff, vUv.y)).r * bnMask;
+    float bnG = inTexture.sample(source, float2(bnUvX, vUv.y)).g * bnMask;
+    float bnB = inTexture.sample(source, float2(bnUvX - rgbDiff, vUv.y)).b * bnMask;
+    float4 blockNoise = float4(bnR, bnG, bnB, 1.0);
+    
+    float bnTime2 = floor(time * 25.0) * 300.0;
+    float noiseX2 = step((snoise3(float3(0.0, vUv.x * 2.0, bnTime2)) + 1.0) / 2.0, 0.12 + strength * 0.5);
+    float noiseY2 = step((snoise3(float3(0.0, vUv.y * 8.0, bnTime2)) + 1.0) / 2.0, 0.12 + strength * 0.3);
+    float bnMask2 = noiseX2 * noiseY2;
+    float bnR2 = inTexture.sample(source, float2(bnUvX + rgbDiff, vUv.y)).r * bnMask2;
+    float bnG2 = inTexture.sample(source, float2(bnUvX, vUv.y)).g * bnMask2;
+    float bnB2 = inTexture.sample(source, float2(bnUvX - rgbDiff, vUv.y)).b * bnMask2;
+    float4 blockNoise2 = float4(bnR2, bnG2, bnB2, 1.0);
+    
+    float waveNoise = (sin(vUv.y * 1200.0) + 1.0) / 2.0 * (0.15 + strength * 0.2);
+    
+    float4 finalColor = float4(r, g, b, 1.0) * float4(1.0 - bnMask - bnMask2) + float4(whiteNoise + blockNoise + blockNoise2 - waveNoise);
+    
+    outTexture.write(finalColor,gid);
+}
+
+
+kernel void DodgeEffect(texture2d<float, access::sample> inTexture [[texture(0)]],
+                         texture2d<float, access::write> outTexture [[texture(1)]],
+                         const device float *timeDelta [[ buffer(0) ]],
+                         uint2 gid [[thread_position_in_grid]],
+                         uint2 tpg [[threads_per_grid]]){
+    
+    constexpr sampler source(address::clamp_to_edge, filter::linear);
+    float2 uv = float2(gid)/float2(tpg);
+//    if (uv.y > 0.5)
+//    {
+    
+        
+        
+        float time = timeDelta[0];
+        float rt_w = inTexture.get_width();
+        float rt_h = inTexture.get_height();
+        
+        
+        float4 c = float4(0.0);
+        float size = 5 + 6 * sin(time);
+        float2 cPos = uv * float2(rt_w, rt_h);
+        float2 tlPos = floor(cPos / float2(size, size));
+        tlPos *= size;
+        int invert = 0;
+        int remX = int(_mod(cPos.x, size));
+        int remY = int(_mod(cPos.y, size));
+        if (remX == 0 && remY == 0)
+            tlPos = cPos;
+        float2 blPos = tlPos;
+        blPos.y += (size - 1.0);
+        if ((remX == remY) ||
+            (((int(cPos.x) - int(blPos.x)) == (int(blPos.y) - int(cPos.y)))))
+        {
+            if (invert == 1)
+                c = float4(0.2, 0.15, 0.05, 1.0);
+            else
+                c = inTexture.sample(source, tlPos * float2(1.0/rt_w, 1.0/rt_h)) * 1.4;
+        }
+        else
+        {
+            if (invert == 1)
+                c = inTexture.sample(source, tlPos * float2(1.0/rt_w, 1.0/rt_h)) * 1.4;
+            else
+                c = float4(0.0, 0.0, 0.0, 1.0);
+        }
+        outTexture.write(c,gid);
+//    }
+//    else
+//    {
+//        uv.y += 0.5;
+//
+//        float4 c =  inTexture.sample(source, uv);
+//        outTexture.write(c,gid);
+//    }
+    
 }
