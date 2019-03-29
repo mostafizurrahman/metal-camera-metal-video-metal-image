@@ -20,9 +20,9 @@ public protocol VideoCaptureDelegate: AnyObject{
 //must init for each video writing session
 public class BaseVideoWriter {
     
-    private var videoInput:AVAssetWriterInput!
+    var videoInput:AVAssetWriterInput!
     private var audioInput:AVAssetWriterInput!
-    private var pixelAdapter:AVAssetWriterInputPixelBufferAdaptor!
+    var pixelAdapter:AVAssetWriterInputPixelBufferAdaptor!
     public var videoWriter:AVAssetWriter!
     
     public weak var captureDelegate:VideoCaptureDelegate?
@@ -91,7 +91,7 @@ public class BaseVideoWriter {
                                             AVVideoScalingModeKey : AVVideoScalingModeResizeAspectFill,
                                             AVVideoCompressionPropertiesKey:
                                                 [AVVideoAverageBitRateKey : 10 * 1024 * 1024,
-                                                 AVVideoExpectedSourceFrameRateKey : NSNumber.init(value:60)]]
+                                                 AVVideoExpectedSourceFrameRateKey : NSNumber.init(value:120)]]
         
         self.videoInput = AVAssetWriterInput(mediaType: AVMediaType.video, outputSettings: videoSettings)
         self.videoInput.expectsMediaDataInRealTime = true
@@ -179,18 +179,28 @@ public class BaseVideoWriter {
     //this will create pixel buffer adapter which will append cvpixel buffer to video input
     //metal texture buffer is converted to cvpixelbuffer and append to adapter.
     public func setPixelBufferAdapter(){
-        let bufferAttributes:[String:Any] = [kCVPixelBufferPixelFormatTypeKey as String : kCVPixelFormatType_32ARGB]
+        let bufferAttributes:[String:Any] = [kCVPixelBufferPixelFormatTypeKey as String : kCVPixelFormatType_32BGRA]
         self.pixelAdapter = AVAssetWriterInputPixelBufferAdaptor.init(assetWriterInput: self.videoInput,
                                                                       sourcePixelBufferAttributes: bufferAttributes)
     }
-    
+    var count = 0
     var skipFrame = false
     public func append(pixelBuffer buffer:CVPixelBuffer,
                        atTime displayTime:CMTime){
-        if self.videoInput.isReadyForMoreMediaData &&
+        if self.pixelAdapter.assetWriterInput.isReadyForMoreMediaData &&
             self.skipVideoCapture == false {
-            if !self.pixelAdapter.append(buffer, withPresentationTime: displayTime){
-                print("okay writes \(displayTime)")
+            if count == 0 {
+                if !self.pixelAdapter.append(buffer, withPresentationTime: displayTime){
+                    print("okay writes \(displayTime)")
+                }
+                count += 1
+                 print("okay")
+            } else {
+                if count >= 2 {
+                    count = 0
+                } else {
+                    count += 1
+                }
             }
         }
     }

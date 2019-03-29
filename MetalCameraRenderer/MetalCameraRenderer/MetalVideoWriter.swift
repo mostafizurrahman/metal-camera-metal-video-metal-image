@@ -31,6 +31,49 @@ class MetalVideoWriter: BaseVideoWriter {
     
     public override func append(metalTexture effectTexture:MTLTexture,
                                 atTime displayTime:CMTime ){
+        
+        
+        
+        
+//        while !self.pixelAdapter.assetWriterInput.isReadyForMoreMediaData {}
+//        
+//        
+////        while !assetWriterVideoInput.isReadyForMoreMediaData {}
+//        
+//        guard let pixelBufferPool = self.pixelAdapter.pixelBufferPool else {
+//            print("Pixel buffer asset writer input did not have a pixel buffer pool available; cannot retrieve frame")
+//            return
+//        }
+//        
+//        var maybePixelBuffer: CVPixelBuffer? = nil
+//        let status  = CVPixelBufferPoolCreatePixelBuffer(nil, pixelBufferPool, &maybePixelBuffer)
+//        if status != kCVReturnSuccess {
+//            print("Could not get pixel buffer from asset writer input; dropping frame...")
+//            return
+//        }
+//        
+//        guard let pixelBuffer = maybePixelBuffer else { return }
+//        
+//        CVPixelBufferLockBaseAddress(pixelBuffer, [])
+//        let pixelBufferBytes = CVPixelBufferGetBaseAddress(pixelBuffer)!
+//        
+//        // Use the bytes per row value from the pixel buffer since its stride may be rounded up to be 16-byte aligned
+//        let bytesPerRow = CVPixelBufferGetBytesPerRow(pixelBuffer)
+//        let region = MTLRegionMake2D(0, 0, effectTexture.width, effectTexture.height)
+//        
+//        effectTexture.getBytes(pixelBufferBytes, bytesPerRow: bytesPerRow, from: region, mipmapLevel: 0)
+//        
+//        
+//        if self.pixelAdapter.append(pixelBuffer, withPresentationTime: displayTime) {
+//            print("done")
+//        }
+//        
+//        CVPixelBufferUnlockBaseAddress(pixelBuffer, [])
+        
+        
+        
+        
+        
         guard let pixelBuffer = self.cvpixelBuffer else {
             return
         }
@@ -51,6 +94,13 @@ class MetalVideoWriter: BaseVideoWriter {
     
     fileprivate func createPixelBuffer(fromTexture metalTexture:MTLTexture){
         
+        
+        
+        let pixelBufferOut = UnsafeMutablePointer<CVPixelBuffer?>.allocate(capacity: 1)
+        
+        
+        
+        
         var keyCallBack: CFDictionaryKeyCallBacks = CFDictionaryKeyCallBacks.init()
         var valueCallBacks: CFDictionaryValueCallBacks = CFDictionaryValueCallBacks.init()
         
@@ -62,12 +112,16 @@ class MetalVideoWriter: BaseVideoWriter {
                                                    &valueCallBacks)
         var iOSurfacePropertiesKey = kCVPixelBufferIOSurfacePropertiesKey
         CFDictionarySetValue(attributes, &iOSurfacePropertiesKey, &empty)
+        
+        
         let cvreturn = CVPixelBufferCreate(kCFAllocatorDefault,
                                            metalTexture.width,
                                            metalTexture.height,
                                            kCVPixelFormatType_32BGRA,
                                            attributes,
-                                           &cvpixelBuffer)
+                                           pixelBufferOut)
+        self.cvpixelBuffer = pixelBufferOut.pointee
+        pixelBufferOut.deallocate()
         self.pixelRegion = MTLRegionMake2D(0, 0, metalTexture.width, metalTexture.height)
         assert(cvreturn == kCVReturnSuccess, "Erorr : Unable to create effect video buffer")
         self.pixelBytesPerRow = CVPixelBufferGetBytesPerRow(self.cvpixelBuffer!)

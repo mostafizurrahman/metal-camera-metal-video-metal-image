@@ -156,11 +156,11 @@ open class MTKViewController: UIViewController {
         } catch  {
             assertionFailure("failed to create state")
         }
-//        let data = [ self.metalLibrary, device, ["WaveColorEffect"]] as [AnyObject]
-//        self.baseKernel = BlackKernelPipelineState(stateData: data)
+        let data = [ self.metalLibrary, device, ["WaveColorEffect"]] as [AnyObject]
+        self.baseKernel = BlackKernelPipelineState(stateData: data)
         
-        let data = [ self.metalLibrary, device, ["GifmovieEffect"], ["image"]] as [AnyObject]
-      self.baseKernel = GifKernelPipelineState(stateData: data)
+//        let data = [ self.metalLibrary, device, ["GifmovieEffect"], ["image"]] as [AnyObject]
+//      self.baseKernel = GifKernelPipelineState(stateData: data)
     }
     
     

@@ -67,7 +67,7 @@ internal final class CameraViewController: MTKViewController {
             self.metalCameraSession.captureSession.stopRunning()
         }
     }
-    
+    let serialQueue = DispatchQueue(label: "queuename")
     
     @IBAction func startVideoCapturing(_ sender: UIButton) {
        self.changeButtonVisibility(true)
@@ -124,10 +124,14 @@ internal final class CameraViewController: MTKViewController {
                                                               atSourceTime: self.displayTime)
                 self.metalVideoWriter?.captureDelegate = self
             } else {
-                guard let metalWriter = self.metalVideoWriter else {
+                guard let metalWriter = self.metalVideoWriter,
+                    let time = self.displayTime else {
                     return
                 }
-                metalWriter.append(metalTexture: intexture, atTime: self.displayTime)
+                
+                self.serialQueue.async {
+                    metalWriter.append(metalTexture: intexture, atTime: time)
+                }
             }
         }
     }
