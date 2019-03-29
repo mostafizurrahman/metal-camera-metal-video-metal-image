@@ -17,7 +17,7 @@ enum CaptureType {
     case unknown
 }
 
-@available(iOS 11.0, *)
+
 internal final class CameraViewController: MTKViewController {
     
     @IBOutlet weak var cameraCaptureButton: UIButton!
@@ -142,7 +142,7 @@ internal final class CameraViewController: MTKViewController {
 
 
 // MARK: - MetalCameraSessionDelegate
-@available(iOS 11.0, *)
+//@available(iOS 11.0, *)
 extension CameraViewController: CameraSessionDelegate {
 
     func metalCameraSession(_ session: MetalCameraSession, didAudioBufer buffer: CMSampleBuffer) {
@@ -188,7 +188,8 @@ extension CameraViewController: CameraSessionDelegate {
 }
 
 
-extension CameraViewController: VideoCaptureDelegate{
+//@available(iOS 11.0, *)
+extension CameraViewController: VideoCaptureDelegate {
     func onVideoCaptureStarted(){
         print("video writing started! type : \(self.captureType)")
         DispatchQueue.main.async {

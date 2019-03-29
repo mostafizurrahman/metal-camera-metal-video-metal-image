@@ -85,13 +85,18 @@ public class BaseVideoWriter {
     
     /// setting up the video input with source frame size for asset writer
     fileprivate func setVideoWriterInput(withSize videoSize:CGSize){
-        let videoSettings:[String : Any] = [AVVideoCodecKey: AVVideoCodecType.h264,
-                                            AVVideoWidthKey: videoSize.width,
-                                            AVVideoHeightKey: videoSize.height,
-                                            AVVideoScalingModeKey : AVVideoScalingModeResizeAspectFill,
-                                            AVVideoCompressionPropertiesKey:
-                                                [AVVideoAverageBitRateKey : 10 * 1024 * 1024,
-                                                 AVVideoExpectedSourceFrameRateKey : NSNumber.init(value:120)]]
+//        if{
+        
+            let videoSettings:[String : Any] = [ AVVideoCodecKey: AVVideoCodecH264,
+                                                AVVideoWidthKey: videoSize.width,
+                                                AVVideoHeightKey: videoSize.height,
+                                                AVVideoScalingModeKey : AVVideoScalingModeResizeAspectFill,
+                                                AVVideoCompressionPropertiesKey:
+                                                    [AVVideoAverageBitRateKey : 10 * 1024 * 1024,
+                                                     AVVideoExpectedSourceFrameRateKey : NSNumber.init(value:120)]]
+//        } else {
+//            // Fallback on earlier versions
+//        }
         
         self.videoInput = AVAssetWriterInput(mediaType: AVMediaType.video, outputSettings: videoSettings)
         self.videoInput.expectsMediaDataInRealTime = true
