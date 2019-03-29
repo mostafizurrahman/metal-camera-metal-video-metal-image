@@ -369,33 +369,33 @@ kernel void spectrumColor(texture2d<float, access::sample> inTexture [[texture(0
 }
 
 
-kernel void noiseEffect(texture2d<float, access::sample> inTexture [[texture(0)]],
-                        texture2d<float, access::write> outTexture [[texture(1)]],
-                        texture2d<float, access::sample> sampleTexture [[texture(2)]],
-                        const device float *timeDelta [[ buffer(0) ]],
-                        uint2 gid [[thread_position_in_grid]],
-                        uint2 tpg [[threads_per_grid]]){
-    
-    constexpr sampler source(address::clamp_to_edge, filter::linear);
-    constexpr sampler noise(address::clamp_to_edge, filter::linear);
-    float2 uv = float2(gid)/float2(tpg);
-    //    uv.y = uv.y;
-    half trheshold =  sin(timeDelta[0]);
-    float2 n_uv = float2(gid)/float2(tpg);
-    float4 sourcePixel = inTexture.sample(source, uv);
-    float4 ditherPixel = sampleTexture.sample(noise, n_uv);
-    
-    
-    float4 color = (ditherPixel - trheshold) * trheshold * 0.5  + sourcePixel * 0.5;
-    if (color.r < 0 || color.a <= 0) {
-        float4 colorOne = sourcePixel * 0.75 + (ditherPixel) * 0.25;
-        outTexture.write(colorOne,gid);
-    }
-    outTexture.write(color,gid);
-    // return color;
-    
-    
-}
+//kernel void noiseEffect(texture2d<float, access::sample> inTexture [[texture(0)]],
+//                        texture2d<float, access::write> outTexture [[texture(1)]],
+//                        texture2d<float, access::sample> sampleTexture [[texture(2)]],
+//                        const device float *timeDelta [[ buffer(0) ]],
+//                        uint2 gid [[thread_position_in_grid]],
+//                        uint2 tpg [[threads_per_grid]]){
+//
+//    constexpr sampler source(address::clamp_to_edge, filter::linear);
+//    constexpr sampler noise(address::clamp_to_edge, filter::linear);
+//    float2 uv = float2(gid)/float2(tpg);
+//    //    uv.y = uv.y;
+//    half trheshold =  sin(timeDelta[0]);
+//    float2 n_uv = float2(gid)/float2(tpg);
+//    float4 sourcePixel = inTexture.sample(source, uv);
+//    float4 ditherPixel = sampleTexture.sample(noise, n_uv);
+//
+//
+//    float4 color = (ditherPixel - trheshold) * trheshold * 0.5  + sourcePixel * 0.5;
+//    if (color.r < 0 || color.a <= 0) {
+//        float4 colorOne = sourcePixel * 0.75 + (ditherPixel) * 0.25;
+//        outTexture.write(colorOne,gid);
+//    }
+//    outTexture.write(color,gid);
+//    // return color;
+//
+//
+//}
 
 
 kernel void colorTransferEffect(texture2d<float, access::sample> inTexture [[texture(0)]],
@@ -555,7 +555,7 @@ kernel void DodgeEffect(texture2d<float, access::sample> inTexture [[texture(0)]
         
         
         float4 c = float4(0.0);
-        float size = 5 + 6 * sin(time);
+    float size = 8;///5 + 6 * sin(time);
         float2 cPos = uv * float2(rt_w, rt_h);
         float2 tlPos = floor(cPos / float2(size, size));
         tlPos *= size;
@@ -590,5 +590,95 @@ kernel void DodgeEffect(texture2d<float, access::sample> inTexture [[texture(0)]
 //        float4 c =  inTexture.sample(source, uv);
 //        outTexture.write(c,gid);
 //    }
+    
+}
+
+
+kernel void Shockwave(texture2d<float, access::sample> inTexture [[texture(0)]],
+                        texture2d<float, access::write> outTexture [[texture(1)]],
+                        const device float *timeDelta [[ buffer(0) ]],
+                        uint2 gid [[thread_position_in_grid]],
+                        uint2 tpg [[threads_per_grid]]){
+    constexpr sampler source(address::clamp_to_edge, filter::linear);
+    float2 uv = float2(gid)/float2(tpg);
+    
+    
+    
+    float2 center = float2(0.25, 0.25); // Mouse position
+    float time = *timeDelta; // effect elapsed time
+    time = (sin(time) + cos(time) ) / tan(time);
+    if (time < 0 ){
+        time = -time;
+    }
+    float3 shockParams = float3(10.0, 0.8, 0.1);
+    
+    
+    float2 texCoord = uv;
+    float dist = distance(uv, center);
+    if ( (dist <= (time + shockParams.z)) &&
+        (dist >= (time - shockParams.z)) )
+    {
+        float diff = (dist - time);
+        float powDiff = 1.0 - pow(abs(diff*shockParams.x),
+                                  shockParams.y);
+        float diffTime = diff  * powDiff;
+        float2 diffUV = normalize(uv - center);
+        texCoord = uv + (diffUV * diffTime);
+    }
+    float4 c  = inTexture.sample(source, texCoord);
+    outTexture.write(c,gid);
+}
+
+
+kernel void Posterize(texture2d<float, access::sample> inTexture [[texture(0)]],
+                      texture2d<float, access::write> outTexture [[texture(1)]],
+                      const device float *timeDelta [[ buffer(0) ]],
+                      uint2 gid [[thread_position_in_grid]],
+                      uint2 tpg [[threads_per_grid]]){
+    constexpr sampler source(address::clamp_to_edge, filter::linear);
+    float2 uv = float2(gid)/float2(tpg);
+    float gamma =  1.2 - cos(*timeDelta);
+    float numColors = 10.0;
+    float3 c  = inTexture.sample(source, uv).rgb;
+    
+        c = pow(c, float3(gamma, gamma, gamma));
+        c = c * numColors;
+        c = floor(c);
+        c = c / numColors;
+        c = pow(c, float3(1.0/gamma));
+    outTexture.write(float4(c, 1.0),gid);
+    
+}
+
+
+kernel void Pixelate(texture2d<float, access::sample> inTexture [[texture(0)]],
+                      texture2d<float, access::write> outTexture [[texture(1)]],
+                      const device float *timeDelta [[ buffer(0) ]],
+                      uint2 gid [[thread_position_in_grid]],
+                      uint2 tpg [[threads_per_grid]]){
+    constexpr sampler source(address::clamp_to_edge, filter::linear);
+    float2 uv = float2(gid)/float2(tpg);
+    
+    
+    float rt_w = inTexture.get_height(); // GeeXLab built-in
+    float rt_h = inTexture.get_width(); // GeeXLab built-in
+    
+    
+    
+    float3 tc = float3(1.0, 0.0, 0.0);
+    float t = sin(*timeDelta);
+    float pixel_w = 12 + 5 * t; // 15.0
+    float pixel_h  = 12 + 5 * t; // 10.0
+
+    float dx = pixel_w*(1./rt_w);
+    float dy = pixel_h*(1./rt_h);
+    float2 crd = float2(dx*floor(uv.x/dx),
+                        dy*floor(uv.y/dy));
+    
+    tc = inTexture.sample(source, crd).rgb;
+    
+    
+    outTexture.write(float4(tc, 1.0),gid);
+    
     
 }

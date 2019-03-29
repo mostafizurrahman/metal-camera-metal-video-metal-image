@@ -156,7 +156,7 @@ open class MTKViewController: UIViewController {
         } catch  {
             assertionFailure("failed to create state")
         }
-        let data = [ self.metalLibrary, device, ["DodgeEffect"]] as [AnyObject]
+        let data = [ self.metalLibrary, device, ["Pixelate"]] as [AnyObject]
         self.baseKernel = EffectKernelPipelineState(stateData: data)
         
 //        let data = [ self.metalLibrary, device, ["GifmovieEffect"], ["image"]] as [AnyObject]
