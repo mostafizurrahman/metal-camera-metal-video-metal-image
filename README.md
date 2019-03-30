@@ -7,6 +7,7 @@ You are here because you wametalnt to know how to
 3. Read a `MTLTexture` buffer, Then use the buffer to create a `CVPixelBuffer`/`UIImage` and whatever you like.
 4. If you are frustrated to understand the metal kernel functionalities and how it should be calculated; then please give a look to this official document from Apple: https://developer.apple.com/documentation/metal/setting_up_a_command_structure
 5. If you would like to read more from the following link then it will be easier to understand the basic of Metal GPU pipeline: https://developer.apple.com/documentation/metal/setting_up_a_command_structure
+![Meta Video](https://github.com/mostafizurrahman/metal-camera-metal-video-metal-image/blob/master/IMG_40DE310CE676-1.jpeg)
 
 ## Special thanks to this repository and its owner:: https://github.com/navoshta/MetalRenderCamera
 
