@@ -217,10 +217,10 @@ extension CameraViewController : UICollectionViewDelegate, UICollectionViewDataS
         let contentCell = collectionView.dequeueReusableCell(withReuseIdentifier: "EffectCell", for: indexPath) as! EffectCell
         let filter = self.filterHelper.getFilter(At: indexPath.row)
         contentCell.effectImageView.image = UIImage(named: "icon")
-        if contentCell.effectImageView.layer.cornerRadius == 0 {
+//        if contentCell.effectImageView.layer.cornerRadius == 0 {
             contentCell.effectImageView.layer.cornerRadius = contentCell.effectImageView.frame.height / 2
             contentCell.effectImageView.layer.masksToBounds = true
-        }
+//        }
         contentCell.effectTitle.text = filter.title
         return contentCell
     }

@@ -12,11 +12,91 @@
 			<string>-</string>
 		</array>
 		<key>id</key>
-		<string>mbbo0</string>
+		<string>NM0</string>
 		<key>icon</key>
-		<string>icon0</string>
+		<string>-</string>
 		<key>title</key>
-		<string>Overlay</string>
+		<string>NONE</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>base</string>
+		<key>fn</key>
+		<string>glitchEffect</string>
+		<key>images</key>
+		<array>
+			<string>-</string>
+		</array>
+		<key>id</key>
+		<string>gl1</string>
+		<key>icon</key>
+		<string>icon7</string>
+		<key>title</key>
+		<string>Tilt</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>base</string>
+		<key>fn</key>
+		<string>ColoredEffect</string>
+		<key>images</key>
+		<array>
+			<string>-</string>
+		</array>
+		<key>id</key>
+		<string>ce0</string>
+		<key>icon</key>
+		<string>icon14</string>
+		<key>title</key>
+		<string>Color</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>movie</string>
+		<key>fn</key>
+		<string>OldmovieEffect</string>
+		<key>images</key>
+		<array>
+			<string>old_theme2</string>
+		</array>
+		<key>id</key>
+		<string>mv0</string>
+		<key>icon</key>
+		<string>icon15</string>
+		<key>title</key>
+		<string>Film</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>movie</string>
+		<key>fn</key>
+		<string>OldmovieEffect</string>
+		<key>images</key>
+		<array>
+			<string>old_theme1</string>
+		</array>
+		<key>id</key>
+		<string>mv1</string>
+		<key>icon</key>
+		<string>icon16</string>
+		<key>title</key>
+		<string>Movie</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>base</string>
+		<key>fn</key>
+		<string>barrelffect</string>
+		<key>images</key>
+		<array>
+			<string>-</string>
+		</array>
+		<key>id</key>
+		<string>bf0</string>
+		<key>icon</key>
+		<string>icon6</string>
+		<key>title</key>
+		<string>Barrel</string>
 	</dict>
 	<dict>
 		<key>type</key>
@@ -86,6 +166,22 @@
 		<key>type</key>
 		<string>base</string>
 		<key>fn</key>
+		<string>BlackEffect</string>
+		<key>images</key>
+		<array>
+			<string>-</string>
+		</array>
+		<key>id</key>
+		<string>bl0</string>
+		<key>icon</key>
+		<string>icon10</string>
+		<key>title</key>
+		<string>Bizzere</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>base</string>
+		<key>fn</key>
 		<string>Posterize</string>
 		<key>images</key>
 		<array>
@@ -113,22 +209,6 @@
 		<string>icon5</string>
 		<key>title</key>
 		<string>Shock</string>
-	</dict>
-	<dict>
-		<key>type</key>
-		<string>base</string>
-		<key>fn</key>
-		<string>barrelffect</string>
-		<key>images</key>
-		<array>
-			<string>-</string>
-		</array>
-		<key>id</key>
-		<string>bf0</string>
-		<key>icon</key>
-		<string>icon6</string>
-		<key>title</key>
-		<string>Barrel</string>
 	</dict>
 	<dict>
 		<key>type</key>
@@ -182,7 +262,7 @@
 		<key>type</key>
 		<string>base</string>
 		<key>fn</key>
-		<string>HSBEffect</string>
+		<string>DodgeEffect</string>
 		<key>images</key>
 		<array>
 			<string>-</string>
@@ -192,7 +272,7 @@
 		<key>icon</key>
 		<string>icon10</string>
 		<key>title</key>
-		<string>HSB</string>
+		<string>Dodge</string>
 	</dict>
 	<dict>
 		<key>type</key>
@@ -244,63 +324,15 @@
 	</dict>
 	<dict>
 		<key>type</key>
-		<string>base</string>
-		<key>fn</key>
-		<string>ColoredEffect</string>
-		<key>images</key>
-		<array>
-			<string>-</string>
-		</array>
-		<key>id</key>
-		<string>ce0</string>
-		<key>icon</key>
-		<string>icon14</string>
-		<key>title</key>
-		<string>Color</string>
-	</dict>
-	<dict>
-		<key>type</key>
 		<string>movie</string>
 		<key>fn</key>
 		<string>OldmovieEffect</string>
 		<key>images</key>
 		<array>
-			<string>old_theme2</string>
+			<string>mask3</string>
 		</array>
 		<key>id</key>
-		<string>mv0</string>
-		<key>icon</key>
-		<string>icon15</string>
-		<key>title</key>
-		<string>Film</string>
-	</dict>
-	<dict>
-		<key>type</key>
-		<string>movie</string>
-		<key>fn</key>
-		<string>OldmovieEffect</string>
-		<key>images</key>
-		<array>
-			<string>old_theme1</string>
-		</array>
-		<key>id</key>
-		<string>mv1</string>
-		<key>icon</key>
-		<string>icon16</string>
-		<key>title</key>
-		<string>Movie</string>
-	</dict>
-	<dict>
-		<key>type</key>
-		<string>mask</string>
-		<key>fn</key>
-		<string>MaskBlendHardLight</string>
-		<key>images</key>
-		<array>
-			<string>mask3.png</string>
-		</array>
-		<key>id</key>
-		<string>cb0</string>
+		<string>cb3</string>
 		<key>icon</key>
 		<string>icon1</string>
 		<key>title</key>
@@ -332,11 +364,59 @@
 			<string>mask5.png</string>
 		</array>
 		<key>id</key>
+		<string>cb2</string>
+		<key>icon</key>
+		<string>icon1</string>
+		<key>title</key>
+		<string>Color Burn</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>mask</string>
+		<key>fn</key>
+		<string>MaskBlendHardLight</string>
+		<key>images</key>
+		<array>
+			<string>mask0.png</string>
+		</array>
+		<key>id</key>
 		<string>cb5</string>
 		<key>icon</key>
 		<string>icon1</string>
 		<key>title</key>
 		<string>Color Burn</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>movie</string>
+		<key>fn</key>
+		<string>OldmovieEffect</string>
+		<key>images</key>
+		<array>
+			<string>mask2</string>
+		</array>
+		<key>id</key>
+		<string>cb5</string>
+		<key>icon</key>
+		<string>icon1</string>
+		<key>title</key>
+		<string>Color Burn</string>
+	</dict>
+	<dict>
+		<key>type</key>
+		<string>base</string>
+		<key>fn</key>
+		<string>ColorShift</string>
+		<key>images</key>
+		<array>
+			<string>-</string>
+		</array>
+		<key>id</key>
+		<string>hs0</string>
+		<key>icon</key>
+		<string>icon10</string>
+		<key>title</key>
+		<string>HSB</string>
 	</dict>
 </array>
 </plist>

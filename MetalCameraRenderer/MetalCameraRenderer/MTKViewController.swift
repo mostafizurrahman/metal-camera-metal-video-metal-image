@@ -126,7 +126,7 @@ open class MTKViewController: UIViewController {
         metalView.contentScaleFactor = UIScreen.main.scale
         metalView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.insertSubview(metalView, at: 0)
-        metalView.center = self.view.center
+//        metalView.center = self.view.center
         #endif
     }
     

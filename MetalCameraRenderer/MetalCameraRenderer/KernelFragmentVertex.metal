@@ -8,7 +8,12 @@
 
 #include <metal_stdlib>
 using namespace metal;
-
+float3 blendMultiply(float3 base, float3 blend) {
+    return base*blend;
+}
+float3 blendMultiply(float3 base, float3 blend, float opacity) {
+    return (blendMultiply(base, blend) * opacity + base * (1.0 - opacity));
+}
 
 float3 blendPhoenix(float3 base, float3 blend) {
     return min(base,blend)-max(base,blend)+float3(1.0);
@@ -18,6 +23,17 @@ float3 blendPhoenix(float3 base, float3 blend, float opacity) {
     return (blendPhoenix(base, blend) * opacity + base * (1.0 - opacity));
 }
 
+float blendReflect(float base, float blend) {
+    return (blend==1.0)?blend:min(base*base/(1.0-blend),1.0);
+}
+
+float3 blendReflect(float3 base, float3 blend) {
+    return float3(blendReflect(base.r,blend.r),blendReflect(base.g,blend.g),blendReflect(base.b,blend.b));
+}
+
+float3 blendReflect(float3 base, float3 blend, float opacity) {
+    return (blendReflect(base, blend) * opacity + base * (1.0 - opacity));
+}
 
 
 float blendOverlay(float base, float blend) {
@@ -383,14 +399,15 @@ kernel void spectrumColor(texture2d<float, access::sample> inTexture [[texture(0
                           uint2 tpg [[threads_per_grid]]) {
     
     constexpr sampler s(address::clamp_to_edge, filter::linear);
-    float2 resolution = float2(gid.xy);
-    float2 err = 10.0 * float2(cos(timeDelta[0]), sin(timeDelta[0]));
-    float2 xy = err / resolution;
+//    float2 resolution = float2(gid.xy);
+    float2 err =  float2(cos(timeDelta[0]), sin(timeDelta[0]));
+ 
+    
     
     float2 uv = float2(gid) / float2(tpg);
     float4 color = inTexture.sample(s, uv);
     
-    float4 color1 = inTexture.sample(s, uv + mod(xy, uv));
+    float4 color1 = inTexture.sample(s, uv + mod(uv, err));
     
     outTexture.write(color1.gbra * color.agrb, gid);
     
@@ -592,7 +609,7 @@ kernel void DodgeEffect(texture2d<float, access::sample> inTexture [[texture(0)]
         
         
         float4 c = float4(0.0);
-    float size = 8;///5 + 6 * sin(time);
+    float size = 1.5  * sin(*timeDelta);
         float2 cPos = uv * float2(rt_w, rt_h);
         float2 tlPos = floor(cPos / float2(size, size));
         tlPos *= size;
@@ -672,6 +689,7 @@ kernel void Posterize(texture2d<float, access::sample> inTexture [[texture(0)]],
                       const device float *timeDelta [[ buffer(0) ]],
                       uint2 gid [[thread_position_in_grid]],
                       uint2 tpg [[threads_per_grid]]){
+    
     constexpr sampler source(address::clamp_to_edge, filter::linear);
     float2 uv = float2(gid)/float2(tpg);
     float gamma =  1.2 - cos(*timeDelta);
@@ -685,6 +703,38 @@ kernel void Posterize(texture2d<float, access::sample> inTexture [[texture(0)]],
         c = pow(c, float3(1.0/gamma));
     outTexture.write(float4(c, 1.0),gid);
     
+}
+
+kernel void BlackEffect(texture2d<float, access::sample> inTexture [[texture(0)]],
+                      texture2d<float, access::write> outTexture [[texture(1)]],
+                      const device float *timeDelta [[ buffer(0) ]],
+                      uint2 gid [[thread_position_in_grid]],
+                      uint2 tpg [[threads_per_grid]]){
+    
+    
+    constexpr sampler source(address::clamp_to_edge, filter::linear);
+    float2 uv = float2(gid)/float2(tpg);
+    
+    float4 c = inTexture.sample(source, uv);
+    
+    c +=  inTexture.sample(source, uv+0.001);
+    c +=  inTexture.sample(source, uv+0.003);
+    c +=  inTexture.sample(source, uv+0.005);
+    c += inTexture.sample(source, uv+0.007);
+    c += inTexture.sample(source, uv+0.009);
+    c += inTexture.sample(source, uv+0.011);
+    
+    c += inTexture.sample(source, uv-0.001);
+    c += inTexture.sample(source, uv-0.003);
+    c += inTexture.sample(source, uv-0.005);
+    c += inTexture.sample(source, uv-0.007);
+    c += inTexture.sample(source, uv-0.009);
+    c += inTexture.sample(source, uv-0.011);
+    
+    c.rgb = float3((c.r+c.g+c.b)/3.0);
+    c = c / 9.5;
+    
+    outTexture.write(c,gid);
 }
 
 
@@ -834,4 +884,91 @@ kernel void MaskBlendHardLight(texture2d<float, access::sample> inTexture [[text
     float3 color = blendPhoenix(blend.rgb, base.rgb, 0.6) ;
     
     outTexture.write(float4(color,1), gid);
+}
+
+kernel void MaskBlendPinLight(texture2d<float, access::sample> inTexture [[texture(0)]],
+                               texture2d<float, access::write> outTexture [[texture(1)]],
+                               texture2d<float, access::sample> movieTexture [[texture(2)]],
+                               const device float *timeDelta [[ buffer(0) ]],
+                               uint2 gid [[thread_position_in_grid]],
+                               uint2 tpg [[threads_per_grid]]){
+    float2 ngid = float2(gid);
+    ngid.x /= inTexture.get_width();
+    ngid.y /= inTexture.get_height();
+    float4 base = inTexture.read(gid);
+    float4 blend = movieTexture.read(gid);
+    float3 color = blendReflect( base.rgb,blend.rgb, 0.5) ;
+    
+    outTexture.write(float4(color,1), gid);
+}
+
+kernel void MaskBlendMultiply(texture2d<float, access::sample> inTexture [[texture(0)]],
+                              texture2d<float, access::write> outTexture [[texture(1)]],
+                              texture2d<float, access::sample> movieTexture [[texture(2)]],
+                              const device float *timeDelta [[ buffer(0) ]],
+                              uint2 gid [[thread_position_in_grid]],
+                              uint2 tpg [[threads_per_grid]]){
+    float2 ngid = float2(gid);
+    ngid.x /= inTexture.get_width();
+    ngid.y /= inTexture.get_height();
+    float4 base = inTexture.read(gid);
+    float4 blend = movieTexture.read(gid);
+    float3 color = blendMultiply( base.rgb,blend.rgb, 0.5) ;
+
+    outTexture.write(float4(color,1), gid);
+    
+}
+
+kernel void ColorShift(texture2d<float, access::sample> inTexture [[texture(0)]],
+                              texture2d<float, access::write> outTexture [[texture(1)]],
+                              texture2d<float, access::sample> movieTexture [[texture(2)]],
+                              const device float *timeDelta [[ buffer(0) ]],
+                              uint2 gid [[thread_position_in_grid]],
+                              uint2 tpg [[threads_per_grid]]){
+    
+    constexpr sampler source(address::clamp_to_edge, filter::linear);
+    float2 uv = float2(gid)/float2(tpg);
+    float2 redShift = float2(0.05, 0) * uv;
+    if ((redShift + uv).x> 1.0){
+        redShift.x = 1;
+    }
+    float2 greenShift = float2(0.075, 0) * uv;
+    if ((greenShift + uv).x > 1){
+        greenShift.x = 1;
+    }
+    float2 blueShift = float2(0.06, 0) * uv;
+    if ((blueShift + uv).x > 1){
+        blueShift.x = 1;
+    }
+    
+    
+    float chromR = inTexture.sample(source, uv + redShift).r;
+    float chromG = inTexture.sample(source, uv + greenShift).g;
+    float chromB = inTexture.sample(source, uv + blueShift).b;
+    
+    
+    outTexture.write(float4(chromR,chromG,chromB, 1), gid);
+}
+
+
+kernel void ColoeAnimEffect(texture2d<float, access::sample> inTexture [[texture(0)]],
+                        texture2d<float, access::write> outTexture [[texture(1)]],
+                        const device float *timeDelta [[ buffer(0) ]],
+                        uint2 gid [[thread_position_in_grid]],
+                        uint2 tpg [[threads_per_grid]]){
+    
+    
+    constexpr sampler source(address::clamp_to_edge, filter::linear);
+    float2 uv = float2(gid)/float2(tpg);
+    float2 resolution = float2(gid.xy);
+    float time = *timeDelta;
+    float2 q = uv / float2(inTexture.get_width(), inTexture.get_height());
+    float3 col = inTexture.sample(source, uv).rgb;
+    col *= sin(gid.y*350.+time)*0.04+1.;//Scanlines
+    col *= sin(gid.x*350.+time)*0.04+1.;
+    col *= pow( 16.0*q.x*q.y*(1.0-q.x)*(1.0-q.y), 0.1)*0.35+0.65; //Vign
+    outTexture.write(float4(col, 1), gid);
+//    fragColor = vec4(col,1.0);
+    
+    
 }

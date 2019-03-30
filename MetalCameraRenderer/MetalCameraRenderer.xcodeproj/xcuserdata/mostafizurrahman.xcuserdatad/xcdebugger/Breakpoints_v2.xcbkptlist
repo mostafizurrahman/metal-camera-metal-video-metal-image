@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MetalCameraRenderer/KernelFragmentVertex.metal"
-            timestampString = "575631610.503055"
+            timestampString = "575648429.568657"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "256"
-            endingLineNumber = "256"
+            startingLineNumber = "272"
+            endingLineNumber = "272"
             landmarkName = "OldmovieEffect(texture2d&lt;float, access::sample&gt; inTexture [[texture(0)]], texture2d&lt;float, access::write&gt; outTexture [[texture(1)]], texture2d&lt;float, access::sample&gt; movieTexture [[texture(2)]], const device float *timeDelta [[ buffer(0) ]], uint2 gid [[thread_position_in_grid]], uint2 tpg [[threads_per_grid]])"
             landmarkType = "9">
          </BreakpointContent>

@@ -37,12 +37,12 @@
 		BE063FE9224EA82500D51C27 /* mask1.png in Resources */ = {isa = PBXBuildFile; fileRef = BE063FE3224EA82400D51C27 /* mask1.png */; };
 		BE063FEA224EA82500D51C27 /* mask0.png in Resources */ = {isa = PBXBuildFile; fileRef = BE063FE4224EA82500D51C27 /* mask0.png */; };
 		BE063FEB224EA82500D51C27 /* mask2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BE063FE5224EA82500D51C27 /* mask2.jpg */; };
-		BE063FEC224EA82500D51C27 /* mask3.png in Resources */ = {isa = PBXBuildFile; fileRef = BE063FE6224EA82500D51C27 /* mask3.png */; };
 		BE063FED224EA82500D51C27 /* mask4.png in Resources */ = {isa = PBXBuildFile; fileRef = BE063FE7224EA82500D51C27 /* mask4.png */; };
 		BE063FEF224EA88D00D51C27 /* MaskKernelPipelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE063FEE224EA88D00D51C27 /* MaskKernelPipelineState.swift */; };
 		BE075D23224F3F64002851E0 /* EffectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE075D22224F3F64002851E0 /* EffectCell.swift */; };
 		BE075D25224F4051002851E0 /* EffectList.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE075D24224F4051002851E0 /* EffectList.plist */; };
 		BE075D27224F4BAB002851E0 /* EffectHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE075D26224F4BAB002851E0 /* EffectHandler.swift */; };
+		BE075D29224FB275002851E0 /* mask3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BE075D28224FB274002851E0 /* mask3.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,12 +78,12 @@
 		BE063FE3224EA82400D51C27 /* mask1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask1.png; sourceTree = "<group>"; };
 		BE063FE4224EA82500D51C27 /* mask0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask0.png; sourceTree = "<group>"; };
 		BE063FE5224EA82500D51C27 /* mask2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mask2.jpg; sourceTree = "<group>"; };
-		BE063FE6224EA82500D51C27 /* mask3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask3.png; sourceTree = "<group>"; };
 		BE063FE7224EA82500D51C27 /* mask4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask4.png; sourceTree = "<group>"; };
 		BE063FEE224EA88D00D51C27 /* MaskKernelPipelineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskKernelPipelineState.swift; sourceTree = "<group>"; };
 		BE075D22224F3F64002851E0 /* EffectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectCell.swift; sourceTree = "<group>"; };
 		BE075D24224F4051002851E0 /* EffectList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = EffectList.plist; sourceTree = "<group>"; };
 		BE075D26224F4BAB002851E0 /* EffectHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectHandler.swift; sourceTree = "<group>"; };
+		BE075D28224FB274002851E0 /* mask3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mask3.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,8 +123,8 @@
 				BE05AD68223D89A300E7FFC9 /* old_theme1.jpg */,
 				BE063FE4224EA82500D51C27 /* mask0.png */,
 				BE063FE3224EA82400D51C27 /* mask1.png */,
+				BE075D28224FB274002851E0 /* mask3.jpg */,
 				BE063FE5224EA82500D51C27 /* mask2.jpg */,
-				BE063FE6224EA82500D51C27 /* mask3.png */,
 				BE063FE7224EA82500D51C27 /* mask4.png */,
 				BE063FE2224EA82400D51C27 /* mask5.png */,
 				BE05AD69223D89A300E7FFC9 /* old_theme2.jpg */,
@@ -236,9 +236,9 @@
 				A2861AE62181837500535983 /* Assets.xcassets in Resources */,
 				BE05AD74223D9B2900E7FFC9 /* image.gif in Resources */,
 				A2861AE42181837200535983 /* Main.storyboard in Resources */,
-				BE063FEC224EA82500D51C27 /* mask3.png in Resources */,
 				BE05AD6B223D89A300E7FFC9 /* old_theme2.jpg in Resources */,
 				BE05AD6A223D89A300E7FFC9 /* old_theme1.jpg in Resources */,
+				BE075D29224FB275002851E0 /* mask3.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
