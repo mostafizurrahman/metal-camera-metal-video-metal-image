@@ -128,7 +128,7 @@
 		<key>icon</key>
 		<string>icon1</string>
 		<key>title</key>
-		<string>Color Burn</string>
+		<string>Distort</string>
 	</dict>
 	<dict>
 		<key>type</key>
@@ -192,7 +192,7 @@
 		<key>icon</key>
 		<string>icon10</string>
 		<key>title</key>
-		<string>Bizzere</string>
+		<string>Bizarre</string>
 	</dict>
 	<dict>
 		<key>type</key>
@@ -352,7 +352,7 @@
 		<key>icon</key>
 		<string>icon1</string>
 		<key>title</key>
-		<string>Color Burn</string>
+		<string>Prism</string>
 	</dict>
 	<dict>
 		<key>type</key>
@@ -368,7 +368,7 @@
 		<key>icon</key>
 		<string>icon1</string>
 		<key>title</key>
-		<string>Color Burn</string>
+		<string>Invert</string>
 	</dict>
 	<dict>
 		<key>type</key>
@@ -384,7 +384,7 @@
 		<key>icon</key>
 		<string>icon1</string>
 		<key>title</key>
-		<string>Color Burn</string>
+		<string>Canny</string>
 	</dict>
 	<dict>
 		<key>type</key>
@@ -400,7 +400,7 @@
 		<key>icon</key>
 		<string>icon1</string>
 		<key>title</key>
-		<string>Color Burn</string>
+		<string>Burn</string>
 	</dict>
 	<dict>
 		<key>type</key>
@@ -416,7 +416,7 @@
 		<key>icon</key>
 		<string>icon1</string>
 		<key>title</key>
-		<string>Color Burn</string>
+		<string>Bonze</string>
 	</dict>
 	<dict>
 		<key>type</key>

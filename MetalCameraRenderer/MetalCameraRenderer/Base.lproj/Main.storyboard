@@ -18,33 +18,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6EQ-Wg-MfG">
-                                <rect key="frame" x="133.5" y="20" width="108" height="30"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                <state key="normal" title="Switch Camera">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vny-hI-oLO">
-                                <rect key="frame" x="51" y="554" width="86" height="33"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                <state key="normal" title="Cam Video"/>
-                                <connections>
-                                    <action selector="startVideoCapturing:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AIr-CP-DIw"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c7b-LK-kbv">
-                                <rect key="frame" x="94" y="554" width="375" height="33"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                <state key="normal" title="Effect Video"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c7b-LK-kbv">
+                                <rect key="frame" x="142.5" y="497" width="90" height="90"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="play_button"/>
                                 <connections>
                                     <action selector="startEffectCapturing:" destination="BYZ-38-t0r" eventType="touchUpInside" id="71J-NY-SzT"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o5n-l2-4GA">
-                                <rect key="frame" x="128" y="554" width="119" height="33"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                <state key="normal" title="Stop Capturing"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o5n-l2-4GA">
+                                <rect key="frame" x="142.5" y="497" width="90" height="90"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="pause_button"/>
                                 <connections>
                                     <action selector="finishCapturing:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YGe-ea-5zl"/>
                                 </connections>
@@ -69,22 +56,22 @@
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Iv1-dK-8H0">
+                                                <imageView userInteractionEnabled="NO" alpha="0.75" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Iv1-dK-8H0">
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <color key="backgroundColor" white="0.92388314260563376" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vcR-yY-iHF">
-                                                    <rect key="frame" x="4" y="20" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <rect key="frame" x="8.5" y="18" width="33" height="14.5"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="Iv1-dK-8H0" firstAttribute="centerX" secondItem="aFu-gn-YsU" secondAttribute="centerX" id="EH5-la-PyK"/>
+                                            <constraint firstItem="vcR-yY-iHF" firstAttribute="centerY" secondItem="aFu-gn-YsU" secondAttribute="centerY" id="Hc8-qj-dVe"/>
                                             <constraint firstItem="Iv1-dK-8H0" firstAttribute="width" secondItem="aFu-gn-YsU" secondAttribute="width" id="krB-tg-QLN"/>
                                             <constraint firstItem="Iv1-dK-8H0" firstAttribute="centerY" secondItem="aFu-gn-YsU" secondAttribute="centerY" id="qAz-hz-KUI"/>
-                                            <constraint firstAttribute="bottom" secondItem="vcR-yY-iHF" secondAttribute="bottom" constant="9" id="xoU-7A-UOV"/>
                                             <constraint firstItem="Iv1-dK-8H0" firstAttribute="height" secondItem="aFu-gn-YsU" secondAttribute="height" id="zBs-bP-qwU"/>
                                             <constraint firstItem="vcR-yY-iHF" firstAttribute="centerX" secondItem="aFu-gn-YsU" secondAttribute="centerX" id="zqR-BK-tNf"/>
                                         </constraints>
@@ -102,26 +89,23 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Dvz-e8-eiJ" firstAttribute="bottom" secondItem="Vny-hI-oLO" secondAttribute="bottom" constant="80" id="1Dw-JT-frl"/>
-                            <constraint firstItem="c7b-LK-kbv" firstAttribute="centerX" secondItem="Dvz-e8-eiJ" secondAttribute="centerX" multiplier="1.5" id="7l3-0S-COK"/>
-                            <constraint firstItem="c7b-LK-kbv" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="E81-7n-pqh"/>
-                            <constraint firstItem="Dvz-e8-eiJ" firstAttribute="bottom" secondItem="c7b-LK-kbv" secondAttribute="bottom" constant="80" id="FUn-6b-i7q"/>
+                            <constraint firstItem="c7b-LK-kbv" firstAttribute="width" secondItem="o5n-l2-4GA" secondAttribute="width" id="IfT-5n-NHK"/>
                             <constraint firstItem="pUL-I4-QBZ" firstAttribute="centerX" secondItem="Dvz-e8-eiJ" secondAttribute="centerX" id="JXC-ma-Crj"/>
-                            <constraint firstItem="6EQ-Wg-MfG" firstAttribute="top" secondItem="Dvz-e8-eiJ" secondAttribute="top" id="Znp-Ts-AY4"/>
-                            <constraint firstItem="6EQ-Wg-MfG" firstAttribute="centerX" secondItem="Dvz-e8-eiJ" secondAttribute="centerX" id="cGB-QA-Xlo"/>
+                            <constraint firstItem="pUL-I4-QBZ" firstAttribute="top" secondItem="o5n-l2-4GA" secondAttribute="bottom" constant="5" id="YQW-uM-vJr"/>
                             <constraint firstItem="Dvz-e8-eiJ" firstAttribute="bottom" secondItem="pUL-I4-QBZ" secondAttribute="bottom" id="gXR-1C-OiC"/>
                             <constraint firstItem="pUL-I4-QBZ" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="gjK-eg-XV1"/>
                             <constraint firstItem="o5n-l2-4GA" firstAttribute="centerX" secondItem="Dvz-e8-eiJ" secondAttribute="centerX" id="haD-iC-Tn2"/>
-                            <constraint firstItem="Dvz-e8-eiJ" firstAttribute="bottom" secondItem="o5n-l2-4GA" secondAttribute="bottom" constant="80" id="ip0-6d-4gE"/>
-                            <constraint firstItem="Vny-hI-oLO" firstAttribute="centerX" secondItem="Dvz-e8-eiJ" secondAttribute="centerX" multiplier="0.5" id="kuW-u4-HQW"/>
+                            <constraint firstItem="c7b-LK-kbv" firstAttribute="centerY" secondItem="o5n-l2-4GA" secondAttribute="centerY" id="tRD-Jb-eHm"/>
+                            <constraint firstItem="c7b-LK-kbv" firstAttribute="height" secondItem="o5n-l2-4GA" secondAttribute="height" id="td6-Si-cq1"/>
+                            <constraint firstItem="c7b-LK-kbv" firstAttribute="centerX" secondItem="o5n-l2-4GA" secondAttribute="centerX" id="zdc-YS-4aJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Dvz-e8-eiJ"/>
                     </view>
                     <navigationItem key="navigationItem" title="Metal Camera" id="lyv-Hx-gTs"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="cameraCaptureButton" destination="Vny-hI-oLO" id="ND2-7r-Scj"/>
                         <outlet property="effectCaptureButton" destination="c7b-LK-kbv" id="cYd-Ls-t80"/>
+                        <outlet property="filterCollection" destination="pUL-I4-QBZ" id="DSo-Ot-t02"/>
                         <outlet property="heightLayout" destination="Nwy-fL-Svo" id="HTY-u7-qLn"/>
                         <outlet property="stopCaptureButton" destination="o5n-l2-4GA" id="CxA-xl-lww"/>
                         <segue destination="MkS-8g-hwG" kind="show" identifier="VideoSegue" id="dgq-dJ-Mqu"/>
@@ -146,6 +130,14 @@
                                 <connections>
                                     <action selector="exitViedeoViewController:" destination="MkS-8g-hwG" eventType="touchUpInside" id="EQB-bC-2Lb"/>
                                     <action selector="exitViedeoViewController:" destination="wyc-yu-Tui" eventType="touchUpInside" id="TOX-ne-kcg"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="46g-Zl-sKf">
+                                <rect key="frame" x="158" y="353" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="saveVideoData:" destination="MkS-8g-hwG" eventType="touchUpInside" id="B4m-4J-Arg"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -182,4 +174,8 @@
             <point key="canvasLocation" x="78" y="201"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="pause_button" width="90" height="90"/>
+        <image name="play_button" width="90" height="90"/>
+    </resources>
 </document>
