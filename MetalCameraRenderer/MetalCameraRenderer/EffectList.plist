@@ -132,6 +132,22 @@
 	</dict>
 	<dict>
 		<key>type</key>
+		<string>movie</string>
+		<key>fn</key>
+		<string>OldmovieEffect</string>
+		<key>images</key>
+		<array>
+			<string>mask1</string>
+		</array>
+		<key>id</key>
+		<string>mv4</string>
+		<key>icon</key>
+		<string>icon15</string>
+		<key>title</key>
+		<string>Film</string>
+	</dict>
+	<dict>
+		<key>type</key>
 		<string>base</string>
 		<key>fn</key>
 		<string>ColorGlitch</string>

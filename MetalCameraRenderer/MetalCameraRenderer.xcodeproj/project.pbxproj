@@ -34,7 +34,6 @@
 		BE05AD74223D9B2900E7FFC9 /* image.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE05AD73223D9B2900E7FFC9 /* image.gif */; };
 		BE063FE1224E232800D51C27 /* EffectKernelPipelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE063FE0224E232800D51C27 /* EffectKernelPipelineState.swift */; };
 		BE063FE8224EA82500D51C27 /* mask5.png in Resources */ = {isa = PBXBuildFile; fileRef = BE063FE2224EA82400D51C27 /* mask5.png */; };
-		BE063FE9224EA82500D51C27 /* mask1.png in Resources */ = {isa = PBXBuildFile; fileRef = BE063FE3224EA82400D51C27 /* mask1.png */; };
 		BE063FEA224EA82500D51C27 /* mask0.png in Resources */ = {isa = PBXBuildFile; fileRef = BE063FE4224EA82500D51C27 /* mask0.png */; };
 		BE063FEB224EA82500D51C27 /* mask2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BE063FE5224EA82500D51C27 /* mask2.jpg */; };
 		BE063FED224EA82500D51C27 /* mask4.png in Resources */ = {isa = PBXBuildFile; fileRef = BE063FE7224EA82500D51C27 /* mask4.png */; };
@@ -43,6 +42,7 @@
 		BE075D25224F4051002851E0 /* EffectList.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE075D24224F4051002851E0 /* EffectList.plist */; };
 		BE075D27224F4BAB002851E0 /* EffectHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE075D26224F4BAB002851E0 /* EffectHandler.swift */; };
 		BE075D29224FB275002851E0 /* mask3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BE075D28224FB274002851E0 /* mask3.jpg */; };
+		BE075D2B224FB362002851E0 /* mask1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BE075D2A224FB361002851E0 /* mask1.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,7 +75,6 @@
 		BE05AD73223D9B2900E7FFC9 /* image.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = image.gif; sourceTree = "<group>"; };
 		BE063FE0224E232800D51C27 /* EffectKernelPipelineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectKernelPipelineState.swift; sourceTree = "<group>"; };
 		BE063FE2224EA82400D51C27 /* mask5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask5.png; sourceTree = "<group>"; };
-		BE063FE3224EA82400D51C27 /* mask1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask1.png; sourceTree = "<group>"; };
 		BE063FE4224EA82500D51C27 /* mask0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask0.png; sourceTree = "<group>"; };
 		BE063FE5224EA82500D51C27 /* mask2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mask2.jpg; sourceTree = "<group>"; };
 		BE063FE7224EA82500D51C27 /* mask4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask4.png; sourceTree = "<group>"; };
@@ -84,6 +83,7 @@
 		BE075D24224F4051002851E0 /* EffectList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = EffectList.plist; sourceTree = "<group>"; };
 		BE075D26224F4BAB002851E0 /* EffectHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectHandler.swift; sourceTree = "<group>"; };
 		BE075D28224FB274002851E0 /* mask3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mask3.jpg; sourceTree = "<group>"; };
+		BE075D2A224FB361002851E0 /* mask1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mask1.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,7 +122,7 @@
 			children = (
 				BE05AD68223D89A300E7FFC9 /* old_theme1.jpg */,
 				BE063FE4224EA82500D51C27 /* mask0.png */,
-				BE063FE3224EA82400D51C27 /* mask1.png */,
+				BE075D2A224FB361002851E0 /* mask1.jpg */,
 				BE075D28224FB274002851E0 /* mask3.jpg */,
 				BE063FE5224EA82500D51C27 /* mask2.jpg */,
 				BE063FE7224EA82500D51C27 /* mask4.png */,
@@ -229,8 +229,8 @@
 				BE063FED224EA82500D51C27 /* mask4.png in Resources */,
 				BE063FEA224EA82500D51C27 /* mask0.png in Resources */,
 				BE063FE8224EA82500D51C27 /* mask5.png in Resources */,
-				BE063FE9224EA82500D51C27 /* mask1.png in Resources */,
 				A2861AE92181837500535983 /* LaunchScreen.storyboard in Resources */,
+				BE075D2B224FB362002851E0 /* mask1.jpg in Resources */,
 				BE075D25224F4051002851E0 /* EffectList.plist in Resources */,
 				BE063FEB224EA82500D51C27 /* mask2.jpg in Resources */,
 				A2861AE62181837500535983 /* Assets.xcassets in Resources */,
