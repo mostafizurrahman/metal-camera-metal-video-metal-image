@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7uc-jU-FUz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7uc-jU-FUz">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,10 +14,6 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="CameraViewController" customModule="MetalCameraRenderer" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -29,7 +26,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vny-hI-oLO">
-                                <rect key="frame" x="51" y="584" width="86" height="33"/>
+                                <rect key="frame" x="51" y="554" width="86" height="33"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <state key="normal" title="Cam Video"/>
                                 <connections>
@@ -37,7 +34,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c7b-LK-kbv">
-                                <rect key="frame" x="233.5" y="584" width="96" height="33"/>
+                                <rect key="frame" x="94" y="554" width="375" height="33"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <state key="normal" title="Effect Video"/>
                                 <connections>
@@ -45,31 +42,87 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o5n-l2-4GA">
-                                <rect key="frame" x="128" y="584" width="119" height="33"/>
+                                <rect key="frame" x="128" y="554" width="119" height="33"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <state key="normal" title="Stop Capturing"/>
                                 <connections>
                                     <action selector="finishCapturing:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YGe-ea-5zl"/>
                                 </connections>
                             </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pUL-I4-QBZ">
+                                <rect key="frame" x="0.0" y="592" width="375" height="75"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="Nwy-fL-Svo"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LbF-JT-BkN">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EffectCell" id="aFu-gn-YsU" customClass="EffectCell" customModule="MetalCameraRenderer" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="12.5" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Iv1-dK-8H0">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vcR-yY-iHF">
+                                                    <rect key="frame" x="4" y="20" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="Iv1-dK-8H0" firstAttribute="centerX" secondItem="aFu-gn-YsU" secondAttribute="centerX" id="EH5-la-PyK"/>
+                                            <constraint firstItem="Iv1-dK-8H0" firstAttribute="width" secondItem="aFu-gn-YsU" secondAttribute="width" id="krB-tg-QLN"/>
+                                            <constraint firstItem="Iv1-dK-8H0" firstAttribute="centerY" secondItem="aFu-gn-YsU" secondAttribute="centerY" id="qAz-hz-KUI"/>
+                                            <constraint firstAttribute="bottom" secondItem="vcR-yY-iHF" secondAttribute="bottom" constant="9" id="xoU-7A-UOV"/>
+                                            <constraint firstItem="Iv1-dK-8H0" firstAttribute="height" secondItem="aFu-gn-YsU" secondAttribute="height" id="zBs-bP-qwU"/>
+                                            <constraint firstItem="vcR-yY-iHF" firstAttribute="centerX" secondItem="aFu-gn-YsU" secondAttribute="centerX" id="zqR-BK-tNf"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="effectImageView" destination="Iv1-dK-8H0" id="12f-cL-ATD"/>
+                                            <outlet property="effectTitle" destination="vcR-yY-iHF" id="Zsd-eE-Gfx"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="g05-CU-XGS"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="mlf-gv-440"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Vny-hI-oLO" secondAttribute="bottom" constant="50" id="1Dw-JT-frl"/>
-                            <constraint firstItem="c7b-LK-kbv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" multiplier="1.5" id="7l3-0S-COK"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="c7b-LK-kbv" secondAttribute="bottom" constant="50" id="FUn-6b-i7q"/>
-                            <constraint firstItem="6EQ-Wg-MfG" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Znp-Ts-AY4"/>
-                            <constraint firstItem="6EQ-Wg-MfG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cGB-QA-Xlo"/>
-                            <constraint firstItem="o5n-l2-4GA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="haD-iC-Tn2"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="o5n-l2-4GA" secondAttribute="bottom" constant="50" id="ip0-6d-4gE"/>
-                            <constraint firstItem="Vny-hI-oLO" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" multiplier="0.5" id="kuW-u4-HQW"/>
+                            <constraint firstItem="Dvz-e8-eiJ" firstAttribute="bottom" secondItem="Vny-hI-oLO" secondAttribute="bottom" constant="80" id="1Dw-JT-frl"/>
+                            <constraint firstItem="c7b-LK-kbv" firstAttribute="centerX" secondItem="Dvz-e8-eiJ" secondAttribute="centerX" multiplier="1.5" id="7l3-0S-COK"/>
+                            <constraint firstItem="c7b-LK-kbv" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="E81-7n-pqh"/>
+                            <constraint firstItem="Dvz-e8-eiJ" firstAttribute="bottom" secondItem="c7b-LK-kbv" secondAttribute="bottom" constant="80" id="FUn-6b-i7q"/>
+                            <constraint firstItem="pUL-I4-QBZ" firstAttribute="centerX" secondItem="Dvz-e8-eiJ" secondAttribute="centerX" id="JXC-ma-Crj"/>
+                            <constraint firstItem="6EQ-Wg-MfG" firstAttribute="top" secondItem="Dvz-e8-eiJ" secondAttribute="top" id="Znp-Ts-AY4"/>
+                            <constraint firstItem="6EQ-Wg-MfG" firstAttribute="centerX" secondItem="Dvz-e8-eiJ" secondAttribute="centerX" id="cGB-QA-Xlo"/>
+                            <constraint firstItem="Dvz-e8-eiJ" firstAttribute="bottom" secondItem="pUL-I4-QBZ" secondAttribute="bottom" id="gXR-1C-OiC"/>
+                            <constraint firstItem="pUL-I4-QBZ" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="gjK-eg-XV1"/>
+                            <constraint firstItem="o5n-l2-4GA" firstAttribute="centerX" secondItem="Dvz-e8-eiJ" secondAttribute="centerX" id="haD-iC-Tn2"/>
+                            <constraint firstItem="Dvz-e8-eiJ" firstAttribute="bottom" secondItem="o5n-l2-4GA" secondAttribute="bottom" constant="80" id="ip0-6d-4gE"/>
+                            <constraint firstItem="Vny-hI-oLO" firstAttribute="centerX" secondItem="Dvz-e8-eiJ" secondAttribute="centerX" multiplier="0.5" id="kuW-u4-HQW"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="Dvz-e8-eiJ"/>
                     </view>
                     <navigationItem key="navigationItem" title="Metal Camera" id="lyv-Hx-gTs"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="cameraCaptureButton" destination="Vny-hI-oLO" id="ND2-7r-Scj"/>
                         <outlet property="effectCaptureButton" destination="c7b-LK-kbv" id="cYd-Ls-t80"/>
+                        <outlet property="heightLayout" destination="Nwy-fL-Svo" id="HTY-u7-qLn"/>
                         <outlet property="stopCaptureButton" destination="o5n-l2-4GA" id="CxA-xl-lww"/>
                         <segue destination="MkS-8g-hwG" kind="show" identifier="VideoSegue" id="dgq-dJ-Mqu"/>
                     </connections>
@@ -82,10 +135,6 @@
         <scene sceneID="tVU-YA-xqG">
             <objects>
                 <viewController id="MkS-8g-hwG" customClass="VideoViewController" customModule="MetalCameraRenderer" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="7S4-8N-W1O"/>
-                        <viewControllerLayoutGuide type="bottom" id="1wG-f4-RKB"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="316-sJ-1cl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -102,9 +151,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="lkp-NX-X6t" firstAttribute="top" secondItem="7S4-8N-W1O" secondAttribute="bottom" id="Ytn-Uy-4KA"/>
-                            <constraint firstItem="lkp-NX-X6t" firstAttribute="leading" secondItem="316-sJ-1cl" secondAttribute="leading" constant="16" id="wTc-f8-m1f"/>
+                            <constraint firstItem="lkp-NX-X6t" firstAttribute="top" secondItem="hID-BT-xAL" secondAttribute="top" id="Ytn-Uy-4KA"/>
+                            <constraint firstItem="lkp-NX-X6t" firstAttribute="leading" secondItem="hID-BT-xAL" secondAttribute="leading" constant="16" id="wTc-f8-m1f"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="hID-BT-xAL"/>
                     </view>
                     <connections>
                         <outlet property="backButton" destination="lkp-NX-X6t" id="jWs-sv-daa"/>

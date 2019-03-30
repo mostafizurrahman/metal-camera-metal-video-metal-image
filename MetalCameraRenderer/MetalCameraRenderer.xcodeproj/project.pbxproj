@@ -40,6 +40,9 @@
 		BE063FEC224EA82500D51C27 /* mask3.png in Resources */ = {isa = PBXBuildFile; fileRef = BE063FE6224EA82500D51C27 /* mask3.png */; };
 		BE063FED224EA82500D51C27 /* mask4.png in Resources */ = {isa = PBXBuildFile; fileRef = BE063FE7224EA82500D51C27 /* mask4.png */; };
 		BE063FEF224EA88D00D51C27 /* MaskKernelPipelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE063FEE224EA88D00D51C27 /* MaskKernelPipelineState.swift */; };
+		BE075D23224F3F64002851E0 /* EffectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE075D22224F3F64002851E0 /* EffectCell.swift */; };
+		BE075D25224F4051002851E0 /* EffectList.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE075D24224F4051002851E0 /* EffectList.plist */; };
+		BE075D27224F4BAB002851E0 /* EffectHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE075D26224F4BAB002851E0 /* EffectHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +81,9 @@
 		BE063FE6224EA82500D51C27 /* mask3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask3.png; sourceTree = "<group>"; };
 		BE063FE7224EA82500D51C27 /* mask4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask4.png; sourceTree = "<group>"; };
 		BE063FEE224EA88D00D51C27 /* MaskKernelPipelineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskKernelPipelineState.swift; sourceTree = "<group>"; };
+		BE075D22224F3F64002851E0 /* EffectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectCell.swift; sourceTree = "<group>"; };
+		BE075D24224F4051002851E0 /* EffectList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = EffectList.plist; sourceTree = "<group>"; };
+		BE075D26224F4BAB002851E0 /* EffectHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +151,9 @@
 				BE05AD70223D94EB00E7FFC9 /* GifKernelPipelineState.swift */,
 				BE063FE0224E232800D51C27 /* EffectKernelPipelineState.swift */,
 				BE063FEE224EA88D00D51C27 /* MaskKernelPipelineState.swift */,
+				BE075D22224F3F64002851E0 /* EffectCell.swift */,
+				BE075D24224F4051002851E0 /* EffectList.plist */,
+				BE075D26224F4BAB002851E0 /* EffectHandler.swift */,
 			);
 			path = MetalCameraRenderer;
 			sourceTree = "<group>";
@@ -222,6 +231,7 @@
 				BE063FE8224EA82500D51C27 /* mask5.png in Resources */,
 				BE063FE9224EA82500D51C27 /* mask1.png in Resources */,
 				A2861AE92181837500535983 /* LaunchScreen.storyboard in Resources */,
+				BE075D25224F4051002851E0 /* EffectList.plist in Resources */,
 				BE063FEB224EA82500D51C27 /* mask2.jpg in Resources */,
 				A2861AE62181837500535983 /* Assets.xcassets in Resources */,
 				BE05AD74223D9B2900E7FFC9 /* image.gif in Resources */,
@@ -252,11 +262,13 @@
 				A2861AF5218183BC00535983 /* CameraSessionDelegate.swift in Sources */,
 				A2861AF9218183CA00535983 /* CameraVideoWriter.swift in Sources */,
 				A2861AF3218183AC00535983 /* MTKViewController.swift in Sources */,
+				BE075D27224F4BAB002851E0 /* EffectHandler.swift in Sources */,
 				A2861AF7218183C100535983 /* BaseVideoWriting.swift in Sources */,
 				BE05AD6D223D89F900E7FFC9 /* OldMoviePipelineState.swift in Sources */,
 				A2861AFF2181853400535983 /* KernelFragmentVertex.metal in Sources */,
 				BE063FE1224E232800D51C27 /* EffectKernelPipelineState.swift in Sources */,
 				A2861B052181870A00535983 /* MetalCameraSession.swift in Sources */,
+				BE075D23224F3F64002851E0 /* EffectCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

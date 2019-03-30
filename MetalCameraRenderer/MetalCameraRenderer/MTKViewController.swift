@@ -29,8 +29,9 @@ enum ImageScalingMode {
  */
 open class MTKViewController: UIViewController {
     
-    
-        var videoWriter:MetalVideoWriter!
+    var filterHelper:EffectHandler!
+    var metalData:[AnyObject] = []
+    var videoWriter:MetalVideoWriter!
     
     var lastFrameTime:Float = 0.0
     
@@ -46,7 +47,7 @@ open class MTKViewController: UIViewController {
     open var internalTexture: MTLTexture?
     
     /// Base pipeline state to be used as compute command encoder.
-    fileprivate var baseKernel:BaseKernelPipelineState?
+    var baseKernel:BaseKernelPipelineState?
     
     
     // a texture for gif collection
@@ -116,13 +117,16 @@ open class MTKViewController: UIViewController {
     fileprivate func initializeMetalView() {
         #if arch(i386) || arch(x86_64)
         #else
-        metalView = MTKView(frame: view.bounds, device: device)
+        
+        let rect = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 1920 / 1080)
+        metalView = MTKView(frame: rect, device: device)
         metalView.delegate = self
         metalView.framebufferOnly = true
         metalView.colorPixelFormat = .bgra8Unorm
         metalView.contentScaleFactor = UIScreen.main.scale
         metalView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.insertSubview(metalView, at: 0)
+        metalView.center = self.view.center
         #endif
     }
     
@@ -156,9 +160,13 @@ open class MTKViewController: UIViewController {
         } catch  {
             assertionFailure("failed to create state")
         }
-        let data = [ self.metalLibrary, device, ["MaskBlendHardLight"], ["mask4.png"]] as [AnyObject]
+        self.metalData.append(self.metalLibrary)
+        self.metalData.append(device)
+        self.filterHelper = EffectHandler()
+        self.baseKernel = self.filterHelper.getKernel(At: 0, Deivce: self.metalData)
+//        let data = [ self.metalLibrary, device, ["NormalEffect"]] as [AnyObject]
 //        self.baseKernel = EffectKernelPipelineState(stateData: data)
-        self.baseKernel = MaskKernelPipelineState(stateData: data)
+//        self.baseKernel = MaskKernelPipelineState(stateData: data)
         
 //        let data = [ self.metalLibrary, device, ["GifmovieEffect"], ["image"]] as [AnyObject]
 //      self.baseKernel = GifKernelPipelineState(stateData: data)

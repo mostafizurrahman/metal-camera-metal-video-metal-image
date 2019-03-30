@@ -17,13 +17,12 @@ enum CaptureType {
     case unknown
 }
 
-
 internal final class CameraViewController: MTKViewController {
+    @IBOutlet weak var heightLayout: NSLayoutConstraint!
     
     @IBOutlet weak var cameraCaptureButton: UIButton!
     @IBOutlet weak var effectCaptureButton: UIButton!
     @IBOutlet weak var stopCaptureButton: UIButton!
-    
     
     
     var displayTime:CMTime!
@@ -35,12 +34,15 @@ internal final class CameraViewController: MTKViewController {
     var captureType:CaptureType = .unknown
     var metalVideoWriter:MetalVideoWriter?
     var cameraVideoWriter:CameraVideoWriter?
-    
+    var cellwidth:CGFloat = 0
+    var cellheight:CGFloat = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         metalCameraSession = MetalCameraSession(delegate: self)
         self.metalCameraSession.startCamera()
+        self.cellwidth = self.heightLayout.constant
+        self.cellheight = self.heightLayout.constant
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -204,3 +206,42 @@ extension CameraViewController: VideoCaptureDelegate {
     }
 }
 
+
+extension CameraViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        return self.filterHelper.effectArray.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let contentCell = collectionView.dequeueReusableCell(withReuseIdentifier: "EffectCell", for: indexPath) as! EffectCell
+        let filter = self.filterHelper.getFilter(At: indexPath.row)
+        contentCell.effectImageView.image = UIImage(named: "icon")
+        if contentCell.effectImageView.layer.cornerRadius == 0 {
+            contentCell.effectImageView.layer.cornerRadius = contentCell.effectImageView.frame.height / 2
+            contentCell.effectImageView.layer.masksToBounds = true
+        }
+        contentCell.effectTitle.text = filter.title
+        return contentCell
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: cellwidth, height: self.cellheight)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.baseKernel = self.filterHelper.getKernel(At: indexPath.row, Deivce: self.metalData)
+    }
+}

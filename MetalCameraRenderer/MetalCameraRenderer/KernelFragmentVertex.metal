@@ -257,7 +257,7 @@ kernel void OldmovieEffect(texture2d<float, access::sample> inTexture [[texture(
     outTexture.write(colorAtPixel, gid);
 }
 
-kernel void WafloatolorEffect(texture2d<float, access::sample> inTexture [[texture(0)]],
+kernel void ColoredEffect(texture2d<float, access::sample> inTexture [[texture(0)]],
                            texture2d<float, access::write> outTexture [[texture(1)]],
                            const device float *timeDelta [[ buffer(0) ]],
                            uint2 gid [[thread_position_in_grid]],
@@ -471,6 +471,16 @@ kernel void gradientEffect(texture2d<float, access::sample> inTexture [[texture(
     outTexture.write(finalColor,gid);
 }
 
+kernel void NormalEffect(texture2d<float, access::sample> inTexture [[texture(0)]],
+                        texture2d<float, access::write> outTexture [[texture(1)]],
+                        uint2 gid [[thread_position_in_grid]],
+                        uint2 tpg [[threads_per_grid]]){
+    float2 uv = float2(gid) / float2(tpg);
+    constexpr sampler s(address::clamp_to_edge, filter::linear);
+    float4 color = inTexture.sample(s, uv);
+    outTexture.write(color,gid);
+}
+
 
 kernel void barrelffect(texture2d<float, access::sample> inTexture [[texture(0)]],
                         texture2d<float, access::write> outTexture [[texture(1)]],
@@ -576,8 +586,7 @@ kernel void DodgeEffect(texture2d<float, access::sample> inTexture [[texture(0)]
 //    {
     
         
-        
-        float time = timeDelta[0];
+    
         float rt_w = inTexture.get_width();
         float rt_h = inTexture.get_height();
         
@@ -822,7 +831,7 @@ kernel void MaskBlendHardLight(texture2d<float, access::sample> inTexture [[text
     ngid.y /= inTexture.get_height();
     float4 base = inTexture.read(gid);
     float4 blend = movieTexture.read(gid);
-    float3 color = blendPhoenix(blend.rgb, base.rgb) ;
+    float3 color = blendPhoenix(blend.rgb, base.rgb, 0.6) ;
     
     outTexture.write(float4(color,1), gid);
 }
