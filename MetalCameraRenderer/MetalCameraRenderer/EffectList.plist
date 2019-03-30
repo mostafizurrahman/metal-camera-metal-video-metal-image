@@ -284,7 +284,7 @@
 			<string>-</string>
 		</array>
 		<key>id</key>
-		<string>hs0</string>
+		<string>hs3</string>
 		<key>icon</key>
 		<string>icon10</string>
 		<key>title</key>
@@ -396,7 +396,7 @@
 			<string>mask0.png</string>
 		</array>
 		<key>id</key>
-		<string>cb5</string>
+		<string>cb4</string>
 		<key>icon</key>
 		<string>icon1</string>
 		<key>title</key>

@@ -10,13 +10,61 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MetalCameraRenderer/KernelFragmentVertex.metal"
-            timestampString = "575648746.6152411"
+            timestampString = "575649556.7462749"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "272"
             endingLineNumber = "272"
             landmarkName = "OldmovieEffect(texture2d&lt;float, access::sample&gt; inTexture [[texture(0)]], texture2d&lt;float, access::write&gt; outTexture [[texture(1)]], texture2d&lt;float, access::sample&gt; movieTexture [[texture(2)]], const device float *timeDelta [[ buffer(0) ]], uint2 gid [[thread_position_in_grid]], uint2 tpg [[threads_per_grid]])"
             landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MetalCameraRenderer/CameraViewController.swift"
+            timestampString = "575649556.7463599"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "263"
+            endingLineNumber = "263"
+            landmarkName = "collectionView(_:didSelectItemAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MetalCameraRenderer/CameraViewController.swift"
+            timestampString = "575649556.7468669"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "265"
+            endingLineNumber = "265"
+            landmarkName = "collectionView(_:didSelectItemAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MetalCameraRenderer/CameraViewController.swift"
+            timestampString = "575649682.859669"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
+            landmarkName = "collectionView(_:didSelectItemAt:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

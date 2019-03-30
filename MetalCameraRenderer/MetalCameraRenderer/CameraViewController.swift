@@ -24,12 +24,12 @@ internal final class CameraViewController: MTKViewController {
     @IBOutlet weak var effectCaptureButton: UIButton!
     @IBOutlet weak var stopCaptureButton: UIButton!
     
-    
+    var selectedIdf = "NM0"
     var displayTime:CMTime!
     var metalCameraSession: MetalCameraSession!
     var totalGifImages: [UIImage]?
     var countOfGifFrameGiven = 0
-    
+    let cellSpace:CGFloat = 2.5
     var selectedIndex:Int = 0
     var captureType:CaptureType = .unknown
     var metalVideoWriter:MetalVideoWriter?
@@ -221,27 +221,53 @@ extension CameraViewController : UICollectionViewDelegate, UICollectionViewDataS
             contentCell.effectImageView.layer.cornerRadius = contentCell.effectImageView.frame.height / 2
             contentCell.effectImageView.layer.masksToBounds = true
 //        }
+        if self.selectedIdf.elementsEqual(filter.filterID){
+            contentCell.layer.borderColor = UIColor.black.cgColor
+            contentCell.layer.borderWidth = 5
+        } else {
+            contentCell.layer.borderWidth = 0
+        }
         contentCell.effectTitle.text = filter.title
         return contentCell
     }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: cellwidth, height: self.cellheight)
+        return CGSize(width: cellwidth - cellSpace * 2, height: self.cellheight - cellSpace * 2)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 5
+        return cellSpace
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        return UIEdgeInsets(top: cellSpace, left: cellSpace * 5, bottom: cellSpace, right: cellSpace * 5)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 5
+        return cellSpace
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let filter = self.filterHelper.getFilter(At: indexPath.row)
+        
+        var index = 0
+        for fl in self.filterHelper.effectArray {
+        
+            if fl.filterID.elementsEqual(self.selectedIdf){
+                break
+            }
+            index += 1
+        }
+        let _index = IndexPath(row: index, section: 0)
+        if let cell = collectionView.cellForItem(at: _index) as? EffectCell {
+            cell.layer.borderWidth = 0
+        }
+        self.selectedIdf = filter.filterID
         self.baseKernel = self.filterHelper.getKernel(At: indexPath.row, Deivce: self.metalData)
+        
+        let _cell = collectionView.cellForItem(at: indexPath) as! EffectCell
+        _cell.layer.borderColor = UIColor.black.cgColor
+        _cell.layer.borderWidth = 5;
+        
     }
 }

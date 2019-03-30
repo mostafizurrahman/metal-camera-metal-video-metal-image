@@ -100,7 +100,7 @@
                                 </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Dvz-e8-eiJ" firstAttribute="bottom" secondItem="Vny-hI-oLO" secondAttribute="bottom" constant="80" id="1Dw-JT-frl"/>
                             <constraint firstItem="c7b-LK-kbv" firstAttribute="centerX" secondItem="Dvz-e8-eiJ" secondAttribute="centerX" multiplier="1.5" id="7l3-0S-COK"/>
