@@ -1,12 +1,14 @@
 # Swift Metal Camera / iOS Metal Video Generator / Metal Image Generation
 
-You are here because you wametalnt to know how to 
+You are here because you want to...
 
 1. How to upload camera feed direct to metal kernel/fragment functions.
 2. Give a start with basic Still Image Texture / Camera Metal Texture loading/processing in iOS graphics using metal API(s).
 3. Read a `MTLTexture` buffer, Then use the buffer to create a `CVPixelBuffer`/`UIImage` and whatever you like.
 4. If you are frustrated to understand the metal kernel functionalities and how it should be calculated; then please give a look to this official document from Apple: https://developer.apple.com/documentation/metal/setting_up_a_command_structure
 5. If you would like to read more from the following link then it will be easier to understand the basic of Metal GPU pipeline: https://developer.apple.com/documentation/metal/setting_up_a_command_structure
+6. Metal shaders for blending and applying effects
+
 ![Meta Video](https://github.com/mostafizurrahman/metal-camera-metal-video-metal-image/blob/master/IMG_40DE310CE676-1.jpeg)
 
 ## Basic is grabbed from here :: https://github.com/navoshta/MetalRenderCamera
