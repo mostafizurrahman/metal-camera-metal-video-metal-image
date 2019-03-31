@@ -9,7 +9,7 @@ You are here because you wametalnt to know how to
 5. If you would like to read more from the following link then it will be easier to understand the basic of Metal GPU pipeline: https://developer.apple.com/documentation/metal/setting_up_a_command_structure
 ![Meta Video](https://github.com/mostafizurrahman/metal-camera-metal-video-metal-image/blob/master/IMG_40DE310CE676-1.jpeg)
 
-## Special thanks to this repository and its owner:: https://github.com/navoshta/MetalRenderCamera
+## Basic is grabbed from here :: https://github.com/navoshta/MetalRenderCamera
 
 I grabbed camera session, metal texture cache creation and other setup related code from here. I perform subclassing for `MTLCommandEncoder` class. I subclassed `AVAssetWriter` to generate video from `MTLTexture`. 
 Here are some important notes about the metal rendering process
