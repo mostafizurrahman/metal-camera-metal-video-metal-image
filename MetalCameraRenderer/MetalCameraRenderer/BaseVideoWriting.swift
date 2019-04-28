@@ -192,21 +192,39 @@ public class BaseVideoWriter {
     var skipFrame = false
     public func append(pixelBuffer buffer:CVPixelBuffer,
                        atTime displayTime:CMTime){
-        if self.pixelAdapter.assetWriterInput.isReadyForMoreMediaData &&
-            self.skipVideoCapture == false {
-            if count == 0 {
-                if !self.pixelAdapter.append(buffer, withPresentationTime: displayTime){
-                    print("okay writes \(displayTime)")
-                }
-                count += 1
-                 print("okay")
-            } else {
-                if count >= 2 {
-                    count = 0
-                } else {
+        if UIDevice.current.hasNotch {
+            if self.pixelAdapter.assetWriterInput.isReadyForMoreMediaData &&
+                self.skipVideoCapture == false {
+                if count == 0 {
+                    if !self.pixelAdapter.append(buffer, withPresentationTime: displayTime){
+                        
+                    }
                     count += 1
+                } else {
+                    if count >= 2 {
+                        count = 0
+                    } else {
+                        count += 1
+                    }
+                }
+            }
+        } else {
+            if self.pixelAdapter.assetWriterInput.isReadyForMoreMediaData &&
+                self.skipVideoCapture == false {
+                if !self.pixelAdapter.append(buffer, withPresentationTime: displayTime){
+                    
                 }
             }
         }
+        
+    }
+}
+extension UIDevice {
+    var hasNotch: Bool {
+        if #available(iOS 11.0, *) {
+            let bottom = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+            return bottom > 0
+        }
+        return false
     }
 }
